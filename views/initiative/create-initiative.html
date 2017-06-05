@@ -1,0 +1,597 @@
+<div ng-include="'./views/user/user-menu.html'">
+</div>
+<div id="createInitiativeController" class="col-lg-12  col-md-12 col-sm-12 col-xs-12 pad0A grey" ng-init="createInitiativeInit()" ng-controller="createInitiativeController">
+    <title ng-bind="pageTitle"></title>
+    <div ng-show="pageloader">
+        <div class="page-loader-bg">
+            <div class="content">
+                Loading...
+                <!--<img src="../images/puff.svg" width="50" alt="">-->
+            </div>
+        </div>
+    </div>
+    <div class="hero-box hero-box-smaller full-bg-13 font-inverse" data-top-bottom="background-position: 50% 0px;" data-bottom-top="background-position: 50% -600px;">
+        <div class="container">
+            <h1 class="hero-heading wow fadeInDown" data-wow-duration="0.6s">{{page_title}}</h1>
+        </div>
+        <div class="hero-overlay bg-black"></div>
+    </div>
+
+    <div id="page-content" class="col-md-10 center-margin frontend-components mrg25T">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel">
+                    <div class="panel-body">
+                        <div class="example-box-wrapper">
+                            <div class="form-horizontal bordered-row">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label mrg10T">Title</label>
+                                    <div class="col-sm-4 mrg10T">
+                                        <input type="text" class="form-control title-error" ng-model="title" placeholder="Title" ng-change="testTitleEmpty()" ng-blur="testTitle(title)">
+                                        <div id="error-msg-title" class="error-msg-title error-style col-md-12 pad0A mrg10T">
+                                            {{invalidform_error.title_error_message}}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" ng-repeat="data in myweakend_data">
+                                    <label class="col-sm-3 control-label mrg10T">  {{myweakend_datafield[$index]}} week performance</label>
+                                    <div class="col-sm-6 mrg10T">
+                                        <textarea id='{{data}}' class="{{data}}" cols="60" name="{{data}}" rows="10"></textarea>
+
+
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="demo-droppable">
+                                            <p>Drag files here or click to upload</p>
+                                        </div>
+                                        <div class="mrg10T alert alert-danger display-none">
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!--current situation start-->
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label mrg10T">Current Situation</label>
+                                    <div class="col-sm-6 mrg10T">
+                                        <textarea id='current_situation_editor' class="current_situation_editor" cols="60" name="current_situation" rows="10"></textarea>
+
+                                        <div id="error-msg-current-situation" class="error-msg-current-situation  error-style col-md-12 pad0A mrg10T ">
+                                            {{invalidform_error.current_error_message}}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3">
+
+                                        <div class="demo-droppable-current demo-droppable">
+                                            <p>Drag files here or click to upload</p>
+                                        </div>
+                                        <div class="mrg10T alert alert-danger display-none" id="filesize-message">
+
+                                        </div>
+
+
+                                        <!--<input type="file" id="current_situation_files">-->
+                                    </div>
+                                    <div class="row col-md-12">
+                                        <div class="col-md-3"> </div>
+                                        <div class="col-sm-6 mrg15L pad15T mrg15T" ng-class="current_situation_files.length>0 || current_files.length>0 ?'image-preview-bg-overflow':''">
+                                            <div class="col-sm-12 pad15B" ng-repeat="image in current_situation_files">
+                                                <div class="col-sm-4">
+                                                    <a ng-if="image.imagetype==='image'" href="{{image.processed_url}} " data-lightbox="example-11 ">
+                                                        <img class="example-image1 " ng-src="{{image.processed_url}} " width="100px " height="100px " alt="image-1" />
+                                                    </a>
+                                                    <a class="example-imag-link1 " href="{{image.processed_url}} " ng-if="image.imagetype!=='image' " target="_blank ">
+                                                        <div class="col-sm-12 image-preview-bg-doc">{{image.displaytext}}</div>
+                                                    </a>
+                                                </div>
+                                                <div class="col-sm-8 pad0L pad15T">
+                                                    <div class="col-sm-12 pad5T">{{image.filename}}</div>
+                                                    <div class="col-sm-12  pad5T">
+                                                        <div class="col-sm-5 pad0A">
+                                                            <a href="{{image.processed_url}}" download>
+                                                                <i class="glyphicon glyphicon-download-alt font-size-12 "></i>
+                                                                <span class="pad5L">download</span>
+                                                            </a>
+                                                        </div>
+                                                        <div class=" col-sm-4 pad0A"><a class="cursor-pointer"><i class="glyphicon glyphicon-remove font-size-12 "></i><span class="pad5L" ng-click="imageDelete(image.fid,'current')">delete</span></a></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 pad15B" ng-repeat="image in current_files track by $index">
+                                                <div class="col-sm-4">
+                                                    <a ng-if="image.imagetype==='image'" href="{{image.imageurl}} " data-lightbox="example-11">
+                                                        <img class="example-image1 " ng-src="{{image.imageurl}} " width="100px " height="100px " alt="image-1" />
+                                                    </a>
+                                                    <a class="example-imag-link1 " href="{{image.imageurl}} " ng-if="image.imagetype!=='image' " target="_blank ">
+                                                        <div class="col-sm-12 image-preview-bg-doc">{{image.displaytext}}</div>
+                                                    </a>
+                                                </div>
+                                                <div class="col-sm-8 pad0L pad15T">
+                                                    <div class="col-sm-12 pad5T">{{image.name}}</div>
+                                                    <div class="col-sm-12  pad5T">
+                                                        <div class="col-sm-5 pad0A">
+                                                            <a class="cursor-pointer">
+                                                                <i class="glyphicon glyphicon-remove font-size-12 "></i>
+                                                                <span class="pad5L" ng-click="deleteSelectimage(image.file_id,'current')">delete</span>
+                                                            </a>
+                                                        </div>
+                                                        <div class=" col-sm-4 pad0A"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3"> </div>
+                                    </div>
+
+
+                                </div>
+                                <!--current situation end-->
+
+                                <!--proposed situation start-->
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Proposed Situation</label>
+                                    <div class="col-sm-6 mrg10T">
+                                        <textarea class="proposed_situation_editor mrg10T" cols="60" id='proposed_situation_editor' name="proposed_situation" rows="10"></textarea>
+
+                                        <div id="error-msg-proposed-situation" class="error-msg-proposed-situation pad0A  col-md-12 error-style mrg10T">
+                                            {{invalidform_error.proposed_error_message}}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="demo-droppable-proposed demo-droppable">
+                                            <p>Drag files here or click to upload</p>
+                                        </div>
+                                        <div class="mrg10T alert alert-danger display-none" id="filesize-message1">
+
+                                        </div>
+                                        <!--<input type="file" id="current_situation_files">-->
+                                    </div>
+                                    <div class="row col-md-12">
+                                        <div class="col-md-3"> </div>
+                                        <div class="col-sm-6 mrg15L pad15T mrg15T" ng-class="proposed_situation_files.length>0 || proposed_files.length>0 ?'image-preview-bg-overflow':''">
+                                            <div class="col-sm-12 pad15B" ng-repeat="image in proposed_situation_files">
+                                                <div class="col-sm-4">
+                                                    <a ng-if="image.imagetype==='image'" href="{{image.processed_url}} " data-lightbox="example-11 ">
+                                                        <img class="example-image1 " ng-src="{{image.processed_url}} " width="100px " height="100px " alt="image-1" />
+                                                    </a>
+                                                    <a class="example-imag-link1 " href="{{image.processed_url}} " ng-if="image.imagetype!=='image' " target="_blank ">
+                                                        <div class="col-sm-12 image-preview-bg-doc">{{image.displaytext}}</div>
+                                                    </a>
+                                                </div>
+                                                <div class="col-sm-8 pad0L pad15T">
+                                                    <div class="col-sm-12 pad5T">{{image.filename}}</div>
+                                                    <div class="col-sm-12  pad5T">
+                                                        <div class="col-sm-5 pad0A">
+                                                            <a href="{{image.processed_url}}" download>
+                                                                <i class="glyphicon glyphicon-download-alt font-size-12 "></i>
+                                                                <span class="pad5L">download</span>
+                                                            </a>
+                                                        </div>
+                                                        <div class=" col-sm-4 pad0A">
+                                                            <a class="cursor-pointer"><i class="glyphicon glyphicon-remove font-size-12 "></i><span class="pad5L" ng-click="imageDelete(image.fid,'proposed')">delete</span></a></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 pad15B" ng-repeat="image in proposed_files track by $index">
+                                                <div class="col-sm-4">
+                                                    <a ng-if="image.imagetype==='image'" ng-href="{{image.imageurl}} " data-lightbox="example-11">
+                                                        <img class="example-image1 " ng-src="{{image.imageurl}} " width="100px " height="100px " alt="image-1" />
+                                                    </a>
+                                                    <a class="example-imag-link1 " ng-href="{{image.imageurl}} " ng-if="image.imagetype!=='image' " target="_blank ">
+                                                        <div class="col-sm-12 image-preview-bg-doc">{{image.displaytext}}</div>
+                                                    </a>
+                                                </div>
+                                                <div class="col-sm-8 pad0L pad15T">
+                                                    <div class="col-sm-12 pad5T">{{image.name}}</div>
+                                                    <div class="col-sm-12  pad5T">
+                                                        <div class="col-sm-5 pad0A">
+                                                            <a class="cursor-pointer">
+                                                                <i class="glyphicon glyphicon-remove font-size-12 "></i>
+                                                                <span class="pad5L" ng-click="deleteSelectimage(image.file_id,'proposed')">delete</span>
+                                                            </a>
+                                                        </div>
+                                                        <div class=" col-sm-4 pad0A">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-3"> </div>
+                                    </div>
+                                </div>
+                                <!--proposed situation end-->
+                                <!--enter links start-->
+                                <div class="form-group">
+                                    <label class="col-sm-3  control-label mrg10T">Links</label>
+                                    <div class="col-sm-6">
+                                        <div class="row mrg10T" ng-repeat="link in links track by $index">
+                                            <div class="col-md-6 ">
+                                                <div class="input-group ">
+                                                    <span class="input-group "></span>
+                                                    <input class="form-control " ng-model="link.title" placeholder="Link title here" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 ">
+                                                <div class="input-group ">
+                                                    <span class="input-group "></span>
+                                                    <input class="form-control " ng-model="link.url" placeholder="Link url here" type="text" ng-blur="createBlankLink(link.url);">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row col-md-12">
+                                            <div class="col-md-6" style="margin:3px"> </div>
+                                            <div id="error-msg-url" class="error-msg-url  error-style  col-md-5 ">
+                                                {{invalidform_error.url_error_message}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--enter links end-->
+                                <!--status start-->
+                                <div class="form-group ">
+                                    <label class="col-sm-3 control-label ">Status</label>
+
+                                    <div class="col-sm-6  mrg5T">
+                                        <label>
+                                             <input type="radio" class="radioinput" ng-model="status" value="todo">
+                                             <span class="status-style">To Do</span>
+                                            
+                                        </label>
+                                        <input type="radio" class="radioinput" ng-model="status" value="doing"><span class="status-style">Doing</span>
+                                        <input type="radio" class="radioinput" ng-model="status" value="done"><span class="status-style">Done</span>
+                                    </div>
+                                </div>
+                                <!--status end-->
+                                <!--months start-->
+                                <div class="form-group ">
+                                    <label class="col-sm-3 control-label  mrg10T">Scheduled for</label>
+                                    <div class="col-sm-9 mrg10T">
+                                        <div class="row">
+                                            <div class="col-md-4 col-sm-4 col-xs-6" ng-repeat="month in updated_months track by $index">
+                                                <input type="radio" id="{{month.short}}" class="radio_shown_as_check " name="scheduled_month" value="{{month.short}}" ng-model="$parent.scheduled_month" ng-change="setDatePickerChange();" />
+                                                <label class="cursor-pointer" for="{{month.short}}">{{month.long}}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--months end-->
+                                <!--date picker start-->
+                                <div class="form-group ">
+                                    <label class="col-sm-3 control-label ">Choose a go live date</label>
+                                    <div class="col-sm-3">
+
+                                        <!--<div ng-show="!livedateFlag">{{live_date}}</div>-->
+                                        <!--<input type="text" id="liveDatePicker" readonly class="datepicker ui-datepicker-inline" style="width: 100%; max-width: 350px;" />-->
+                                        <div id="liveDatePicker" class="datepicker ui-datepicker-inline" style="width: 100%; max-width: 350px;"></div>
+                                    </div>
+                                </div>
+
+                                <!--date picker end-->
+                                <!--Directives start-->
+                                <div class="form-group ">
+                                    <label class="col-sm-3 control-label ">Choose directive(s) this initiative contributes to</label>
+                                    <div class="col-sm-5 mrg10T">
+                                        <select multiple class="multi-select " on-finish-render="ngRepeatFinished" id="choosen_directives" ng-options="directive.nid as directive.title for directive in directivesList" ng-model="choosen_directives">
+                                        </select>
+                                        <div id="error-msg-directive" class="error-msg-directive error-style col-md-12 mrg10T pad0A">
+                                            {{invalidform_error.directive_error_message}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Directives end-->
+                                <div class="form-group ">
+                                    <label class="col-sm-3 control-label ">Assign a Product manager</label>
+                                    <div class="col-sm-5 mrg10T">
+                                        <select multiple class="multi-select " on-finish-render="ngRepeatFinished" id="choosen_manager" ng-options="manager.uid as manager.users_name for manager in productManagerList" ng-model="choosen_manager">
+                                        </select>
+                                        <div id="error-msg-product-manager" class="error-msg-product-manager error-style  col-md-12 mrg10T pad0A">
+                                            {{invalidform_error.manager_error_message}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Directives end-->
+                                <div class="form-group ">
+                                    <label class="col-sm-3 control-label ">Assign a Stake Holder</label>
+                                    <div class="col-sm-5 mrg10T">
+                                        <select multiple class="multi-select " on-finish-render="ngRepeatFinished" id="choosen_holder" ng-options="holder.uid as holder.users_name for holder in stakeholderList" ng-model="choosen_holder">
+                                        </select>
+                                        <!--<select multiple class="multi-select " on-finish-render="ngRepeatFinished" id="choosen_holder" ng-options="holder.uid as holder.users_name for holder in stakeholderList" ng-model="choosen_holder">-->
+                                        <!--</select>-->
+                                    </div>
+                                </div>
+                                <!--Directives end-->
+                                <div class="form-group ">
+                                    <label class="col-sm-3 control-label ">Assign a Business Owner</label>
+                                    <div class="col-sm-5 mrg10T">
+                                        <select multiple class="multi-select " on-finish-render="ngRepeatFinished" id="choosen_owner" ng-options="owner.uid as owner.users_name for owner in businessownerList" ng-model="choosen_owner">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Number of devs required</label>
+                                    <div class="col-sm-1 pad0A">
+                                        <input id="num_of_dev" ng-model="$parent.num_of_dev" onkeypress="return isNumberKey(event)" class="form-control touchspin-demo" type="text" value="0" name="num_of_dev">
+
+                                    </div>
+                                    <label class="col-sm-2 control-label">Number of days per dev</label>
+                                    <div class="col-sm-1 pad0A">
+                                        <input id="num_of_dev_days" ng-model="num_of_dev_days" onkeypress="return isNumberKey(event)" class="form-control touchspin-demo" type="text" value="0" name="num_of_dev_days">
+                                    </div>
+
+
+                                    <div class="col-md-4 col-sm-4 col-xs-6 ng-scope">
+                                        <input id="num_of_dev_completed" class="form-control1" type="checkbox" value="1" name="num_of_dev_completed"> <span>Complete</span>
+                                    </div>
+
+                                </div>
+                                <div class="form-group ">
+                                    <label class="col-sm-3 control-label ">Number of UX designers</label>
+                                    <div class="col-sm-1 pad0A ">
+                                        <input id="num_of_ux " class="form-control touchspin-demo " onkeypress="return isNumberKey(event) " type="text " value="0 " name="num_of_ux ">
+                                    </div>
+                                    <label class="col-sm-2 control-label ">Number of days per UX</label>
+                                    <div class="col-sm-1 pad0A ">
+                                        <input id="num_of_ux_days " class="form-control touchspin-demo " onkeypress="return isNumberKey(event) " type="text " value="0 " name="num_of_ux_days ">
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-6 ng-scope">
+                                        <input id="num_of_ux_completed" class="form-control1" type="checkbox" value="1" name="num_of_ux_completed"> <span>Complete</span>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label class="col-sm-3 control-label ">Number of UI designers</label>
+                                    <div class="col-sm-1 pad0A ">
+                                        <input id="num_of_ui " class="form-control touchspin-demo " onkeypress="return isNumberKey(event) " type="text " value="0 " name="num_of_ui ">
+                                    </div>
+                                    <label class="col-sm-2 control-label ">Number of days per UI</label>
+                                    <div class="col-sm-1 pad0A ">
+                                        <input id="num_of_ui_days " class="form-control touchspin-demo " onkeypress="return isNumberKey(event) " type="text " value="0 " name="num_of_ui_days ">
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-6 ng-scope">
+                                        <input id="num_of_ui_completed" class="form-control1" type="checkbox" value="1" name="num_of_ui_completed"> <span>Complete</span>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label class="col-sm-3 control-label ">Number of Data  Analyst</label>
+                                    <div class="col-sm-1 pad0A ">
+                                        <input id="num_of_da " class="form-control touchspin-demo " onkeypress="return isNumberKey(event) " type="text " value="0 " name="num_of_da ">
+                                    </div>
+                                    <label class="col-sm-2 control-label ">Number of days per DA</label>
+                                    <div class="col-sm-1 pad0A ">
+                                        <input id="num_of_da_days " class="form-control touchspin-demo " onkeypress="return isNumberKey(event) " type="text " value="0 " name="num_of_da_days ">
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-6 ng-scope">
+                                        <input id="num_of_da_completed" class="form-control1" type="checkbox" value="1" name="num_of_da_completed"> <span>Complete</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 ">
+                                    <div class="button-pane mrg10T ">
+                                        <div class="mrg10T alert alert-danger display-none " id="apierror-message ">
+                                            {{apierrormessage}}
+                                        </div>
+                                        <button type="submit " ng-if="edit_initiativeFlag " ng-click="InitiativeValidation( 'update'); " class="btn btn-block btn-primary ">Update</button>
+                                        <!--<button type="submit " ng-click="testInitiative() " class="btn btn-block btn-primary ">Test</button>-->
+                                        <button type="submit " ng-if="!edit_initiativeFlag " ng-click="InitiativeValidation( 'create') " class="btn btn-block btn-primary ">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript " src="./assets/widgets/touchspin/touchspin.js "></script>
+<script type="text/javascript " src="./assets/widgets/input-switch/inputswitch.js "></script>
+
+
+<!-- start-->
+<!-- end-->
+<!-- end-->
+
+<!-- FRONTEND ELEMENTS -->
+<script type="text/javascript ">
+    var files;
+    var files_string = [];
+    var drag_currentfiles = [];
+    (function(window) {
+        function triggerCallback(e, callback) {
+            if (!callback || typeof callback !== 'function') {
+                return;
+            }
+            if (e.dataTransfer) {
+                files = e.dataTransfer.files;
+            }
+            else if (e.target) {
+                files = e.target.files;
+            }
+            callback.call(null, files);
+        }
+
+
+
+        function makeDroppable(ele, callback) {
+            var input = document.createElement('input');
+            input.setAttribute('type', 'file');
+            input.setAttribute('multiple', true);
+            input.style.display = 'none';
+            input.addEventListener('change', function(e) {
+                triggerCallback(e, callback);
+            });
+            ele.appendChild(input);
+
+            ele.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                ele.classList.add('dragover');
+            });
+
+            ele.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                ele.classList.remove('dragover');
+            });
+
+            ele.addEventListener('drop', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                ele.classList.remove('dragover');
+                triggerCallback(e, callback);
+            });
+
+            ele.addEventListener('click', function() {
+                input.value = null;
+                input.click();
+            });
+        }
+        window.makeDroppable = makeDroppable;
+    })(this);
+
+
+
+    (function(window) {
+        makeDroppable(window.document.querySelector('.demo-droppable-current'), function(files) {
+            var showError = false;
+            for (var i = 0; i < files.length; i++) {
+                if (files[i].size < (10 * 1024 * 1024)) //10 mb derived by calculation
+                {
+                    files[i]['file_id'] = drag_currentfiles.length + 1;
+                    drag_currentfiles.push(files[i]);
+                }
+                else {
+                    showError = true;
+                    $("#filesize-message ").text($("#filesize-message ").text() + files[i].name + " is too large " + "\n ");
+                }
+            }
+
+            if (showError)
+                $("#filesize-message ").show();
+            else {
+                $("#filesize-message ").hide();
+                $("#filesize-message ").text(" ");
+            }
+
+            for (var i = 0; i < drag_currentfiles.length; i++) {
+                drag_currentfiles[i]["imageurl "] = URL.createObjectURL(drag_currentfiles[i]);
+                var extension = drag_currentfiles[i]["name "].split('.').pop();
+                if (extension == 'jpg' || extension == 'png' || extension == 'jpeg' || extension == 'gif') {
+                    drag_currentfiles[i]["imagetype "] = "image ";
+                }
+                else {
+                    drag_currentfiles[i]["imagetype "] = "file ";
+                    drag_currentfiles[i]["displaytext "] = extension.toUpperCase();
+                }
+                angular.element(document.getElementById('createInitiativeController')).scope().addcurrentfiles(drag_currentfiles);
+            }
+            angular.module('DrupalApp', [])
+                .controller('createInitiativeController', function($scope) {});
+        });
+    })(this);
+    //URL.createObjectURL(selectedfiles[i])
+    var files1;
+    var files_string1 = [];
+    var drag_proposedfiles = [];
+    (function(window) {
+        function triggerCallback(e, callback) {
+            if (!callback || typeof callback !== 'function') {
+                return;
+            }
+            if (e.dataTransfer) {
+                files1 = e.dataTransfer.files;
+            }
+            else if (e.target) {
+                files1 = e.target.files;
+            }
+            callback.call(null, files1);
+        }
+
+
+
+        function makeDroppable(ele, callback) {
+            var input = document.createElement('input');
+            input.setAttribute('type', 'file');
+            input.setAttribute('multiple', true);
+            input.style.display = 'none';
+            input.addEventListener('change', function(e) {
+                triggerCallback(e, callback);
+            });
+            ele.appendChild(input);
+
+            ele.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                ele.classList.add('dragover');
+            });
+
+            ele.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                ele.classList.remove('dragover');
+            });
+
+            ele.addEventListener('drop', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                ele.classList.remove('dragover');
+                triggerCallback(e, callback);
+            });
+
+            ele.addEventListener('click', function() {
+                input.value = null;
+                input.click();
+            });
+        }
+        window.makeDroppable = makeDroppable;
+    })(this);
+
+
+
+    (function(window) {
+        makeDroppable(window.document.querySelector('.demo-droppable-proposed'), function(files) {
+            var showError = false;
+            for (var i = 0; i < files1.length; i++) {
+                if (files1[i].size < (10 * 1024 * 1024)) //10 mb derived by calculation
+                {
+                    files1[i]['file_id'] = drag_proposedfiles.length + 1;
+                    drag_proposedfiles.push(files1[i]);
+                }
+                else {
+                    showError = true;
+                    $("#filesize-message1 ").text($("#filesize-message1 ").text() + files[i].name + " is too large " + "\n ");
+
+                }
+            }
+
+            if (showError)
+                $("#filesize-message1 ").show();
+            else {
+                $("#filesize-message1 ").hide();
+                $("#filesize-message1 ").text(" ");
+            }
+
+
+            for (var i = 0; i < drag_proposedfiles.length; i++) {
+                drag_proposedfiles[i]["imageurl "] = URL.createObjectURL(drag_proposedfiles[i]);
+                var extension = drag_proposedfiles[i]["name "].split('.').pop();
+                if (extension == 'jpg' || extension == 'png' || extension == 'jpeg' || extension == 'gif') {
+                    drag_proposedfiles[i]["imagetype "] = "image ";
+                }
+                else {
+                    drag_proposedfiles[i]["imagetype "] = "file ";
+                    drag_proposedfiles[i]["displaytext "] = extension.toUpperCase();
+                }
+                angular.element(document.getElementById('createInitiativeController')).scope().addproposedfiles(drag_proposedfiles);
+            }
+            angular.module('DrupalApp', [])
+                .controller('createInitiativeController', function($scope) {});
+
+        });
+    })(this);
+</script>

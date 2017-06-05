@@ -1,0 +1,114 @@
+<div ng-include="'./views/user/user-menu.html'"></div>
+<div class="col-lg-12  col-md-12 col-md-12 col-md-12 grey pad0A" ng-init="viewDirectivesInit()" ng-controller="viewDirectivesController">
+    <title ng-bind="pageTitle"></title>
+    <div ng-show="pageloader">
+        <div class="page-loader-bg">
+            <div class="content">
+                Loading...
+                <!--<img src="../images/puff.svg" width="50" alt="">-->
+            </div>
+        </div>
+    </div>
+    <div class="hero-box hero-box-smaller full-bg-13 font-inverse" data-top-bottom="background-position: 50% 0px;" data-bottom-top="background-position: 50% -600px;">
+        <div class="container">
+            <h1 class="hero-heading wow fadeInDown" data-wow-duration="0.6s">VIEW ALL DIRECTIVES</h1>
+        </div>
+        <div class="hero-overlay bg-black"></div>
+    </div>
+    <div id="page-content" class="col-md-10 center-margin frontend-components mrg25T">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="for-large-device">
+                    <ul class="nav nav-tabs mrg25B">
+                        <li ng-click="selectAllMonth('all')" ng-class="selectedMonth == 'all' ? 'active':''" class="cursor-pointer"><a>All Months</a></li>
+                        <li ng-click="selectMonth(month,$index)" ng-class="selectedMonth == '{{month.full_month}}' ? 'active':''" ng-repeat="month in totalMonths" class="cursor-pointer"><a>{{month.full_month}}</a></li>
+                    </ul>
+                </div>
+
+                <div class="for-mobile-device">
+                    <div class="initive-btn">
+                        <button type="button" class="btn btn-primary" ng-click="gotoCreateDirective()">
+        				    <span style="font-weight:700; font-size:16px; position:relative; top:2px; left:0px">+</span> New Directive
+        			    </button>
+                    </div>
+
+                    <select class="form-control" ng-options="month as month.full_month for month in totalMonths" ng-model="month" ng-change="selectMonth(month,$index+1)" required ng-class="selectedMonth == '{{month}}'"><option ng-model="month" ng-change="selectMonth(0,0)" ng-class="selectedMonth == 'all' ? 'active':''" value="">All months</option></select>
+                </div>
+            </div>
+        </div>
+        <div class="main-container">
+            <!--LHS-->
+            <div class="left-sidebar clearfix">
+                <div class="panel-group">
+                    <div class="panel for-large-device">
+                        <button type="button" class="btn btn-primary btn-lg btn-block" ng-click="gotoCreateDirective()">
+                            <span style="font-weight:700">+</span> New Directive</button>
+                    </div>
+                </div>
+            </div>
+            <div class="right-side-block">
+                <div class="row"></div>
+                <div class="col-sm-12 col-md-12 col-lg-8">
+                    <div class="panel pad0A">
+                        <h3 class="title-hero pad15A  margin0A">Directives actioned in {{selectedMonth}}</h3>
+                        <div class="panel-body pad0A">
+                            <div class="example-box-wrapper">
+                                <div class="form-horizontal bordered-row">
+
+                                    <div class="example-box-wrapper view-initiative-detaildiv">
+                                        <div class="col-sm-12 col-md-12  col-lg-12  border-top-graydashed pad20T" ng-repeat="directive in all_directives |  orderBy: 'title' ">
+
+                                            <div class="col-sm-12 col-md-12 col-lg-6 pad0A">
+                                                <h3 ng-click="gotoViewDirective(directive.directive_id)" class="cursor-pointer pad0A text-capitalize  mrg15B pad0A">{{directive.title}}</h3>
+
+                                                <div class="character-remaining clear input-description">
+                                                    <div class="clearfix mrg5T taginlinemob">
+                                                        <div ng-bind-html="directive.description"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-12 col-lg-6 pad0A clearfix">
+                                                <div class="col-sm-5 col-xs-12  col-lg-6 remainingdays">
+                                                    <div class="character-remaining clear input-description">
+                                                        {{directive.developer}} DEV
+                                                        <span ng-if="directive.developer>1">days</span>
+                                                        <span ng-if="directive.developer<=1">day</span>
+                                                    </div>
+                                                    <div class="character-remaining clear input-description">
+                                                        {{directive.ux}} UX
+                                                        <span ng-if="directive.ux>1">days</span>
+                                                        <span ng-if="directive.ux<=1">day</span>
+                                                    </div>
+                                                    <div class="character-remaining clear input-description">
+                                                        {{directive.ui}} UI
+                                                        <span ng-if="directive.ui>1">days</span>
+                                                        <span ng-if="directive.ui<=1">day</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-7 col-xs-12 col-lg-6">
+                                                    <div class="character-remaining clear input-description">
+                                                        <div class="individual-plan pricing-box-alt">
+                                                            <div class="plan-header text-center">
+                                                                <div class="plan-price">{{directive.initiatives}}</div>
+                                                                <h4>Inititatives</h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12  col-lg-12" ng-show="!all_directives.length&&pageloader">
+                                            <div class="text-center pad20A">
+                                                <h3>No Directive in this month</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

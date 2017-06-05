@@ -1,0 +1,281 @@
+<div ng-include="'./views/user/user-menu.html'">
+</div>
+<div id="createDirectiveController" class="col-lg-12  col-md-12 col-md-12 col-md-12 pad0A grey" ng-init="createDirectiveInit()" ng-controller="createDirectiveController">
+    <title ng-bind="pageTitle"></title>
+    <div ng-show="pageloader">
+        <div class="page-loader-bg">
+            <div class="content">
+                Loading...
+                <!--<img src="../images/puff.svg" width="50" alt="">-->
+            </div>
+        </div>
+    </div>
+    <div class="hero-box hero-box-smaller full-bg-13 font-inverse" data-top-bottom="background-position: 50% 0px;" data-bottom-top="background-position: 50% -600px;">
+        <div class="container">
+            <h1 class="hero-heading wow fadeInDown" data-wow-duration="0.6s">{{page_title}}</h1>
+        </div>
+        <div class="hero-overlay bg-black"></div>
+    </div>
+    <div id="page-content" class="col-md-10 center-margin frontend-components mrg25T">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel">
+                    <div class="panel-body">
+                        <div class="example-box-wrapper">
+                            <div class="form-horizontal bordered-row">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Title </label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" ng-model="title" placeholder="Title" ng-change="testTitleEmpty()" ng-blur="testTitle(title)">
+                                        <div id="error-msg-title" class="error-msg-title error-style col-md-12 pad0A">
+                                            {{invalidform_error.title_error_message}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--description situation start-->
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Description</label>
+                                    <div class="col-sm-6">
+                                        <textarea class="ckeditor" cols="80" id="description" name="description" rows="10"></textarea>
+                                        <!--<div class="character-remaining clear input-description">125 characters left</div>-->
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="demo-droppable">
+                                            <p>Drag files here or click to upload</p>
+                                        </div>
+                                        <div class="mrg10T alert alert-danger display-none" id="filesize-message">
+
+                                        </div>
+                                    </div>
+                                    <div class="row col-md-12">
+                                        <div class="col-md-3"> </div>
+                                        <div class="col-sm-6 mrg15L pad15T mrg15T" ng-class="description_apifiles.length>0 || descriptionfiles.length>0 ?'image-preview-bg-overflow':''">
+                                            <div class="col-sm-12 pad15B" ng-repeat="image in description_apifiles">
+                                                <div class="col-sm-4 col-xs-6">
+                                                    <a ng-if="image.imagetype==='image'" href="{{image.processed_url}} " data-lightbox="example-11 ">
+                                                        <img class="example-image1 " ng-src="{{image.processed_url}} " width="100px " height="100px " alt="image-1" />
+                                                    </a>
+                                                    <a class="example-imag-link1 " href="{{image.processed_url}} " ng-if="image.imagetype!=='image' " target="_blank ">
+                                                        <div class="col-sm-12 image-preview-bg-doc">{{image.displaytext}}</div>
+                                                    </a>
+                                                </div>
+                                                <div class="col-sm-8 col-xs-6 pad0L pad15T">
+                                                    <div class="col-sm-12 col-xs-12 pad5T">{{image.filename}}</div>
+                                                    <div class="col-sm-12  col-xs-12  pad5T">
+                                                        <div class="col-sm-5   pad0A">
+                                                            <a href="{{image.processed_url}}" download>
+                                                                <i class="glyphicon glyphicon-download-alt font-size-12 "></i>
+                                                                <span class="pad5L">download</span>
+                                                            </a>
+                                                        </div>
+                                                        <div class=" col-sm-4 pad0A">
+                                                            <a class="cursor-pointer">
+                                                                <i class="glyphicon glyphicon-remove font-size-12 "></i>
+                                                                <span class="pad5L" ng-click="imageDelete(image.fid)">delete</span></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 pad15B" ng-repeat="image in descriptionfiles track by $index">
+                                                <div class="col-sm-4 col-xs-6">
+                                                    <a ng-if="image.imagetype==='image'" href="{{image.imageurl}} ">
+                                                        <img class="example-image1 " ng-src="{{image.imageurl}} " width="100px " height="100px " alt="image-1" />
+                                                    </a>
+                                                    <a class="example-imag-link1 " href="{{image.imageurl}} " ng-if="image.imagetype!=='image' " target="_blank ">
+                                                        <div class="col-sm-12 image-preview-bg-doc">{{image.displaytext}}</div>
+                                                    </a>
+                                                </div>
+                                                <div class="col-sm-8 col-xs-6 pad0L pad15T">
+                                                    <div class="col-sm-12 col-xs-12 pad5T">{{image.name}}</div>
+                                                    <div class="col-sm-12 col-xs-12  pad5T">
+                                                        <div class="col-sm-5 pad0A">
+                                                            <a class="cursor-pointer">
+                                                                <i class="glyphicon glyphicon-remove font-size-12 "></i>
+                                                                <span class="pad5L" ng-click="deleteSelectimage(image.file_id)">delete</span>
+                                                            </a>
+                                                        </div>
+                                                        <div class=" col-sm-4  pad0A"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3"> </div>
+                                    </div>
+                                </div>
+                                <!--current situation end-->
+                                <!--enter links start-->
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Links</label>
+                                    <div class="col-sm-6">
+                                        <div class="row mrg10T" ng-repeat="link in links">
+                                            <div class="col-md-6">
+                                                <div class="input-group">
+                                                    <span class="input-group">
+                                                    </span>
+                                                    <input class="form-control" ng-model="link.title" placeholder="Link title here" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="input-group">
+                                                    <span class="input-group">
+                                                    </span>
+                                                    <input class="form-control" ng-blur="createBlankLink()" ng-model="link.url" placeholder="URL here e.g.www.google.com" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row col-md-12">
+                                            <div class="col-md-6" style="margin:3px"> </div>
+                                            <div id="error-msg-url" class="error-msg-url  error-style  col-md-5 ">
+                                                {{invalidform_error.url_error_message}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--enter links end-->
+                                <!--status start-->
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">
+<!--<a class="btn btn-default popover-button-default btn-md" title="Status" data-placement="top"  -->
+<!--data-content="If we've proved this directive will grow the business, select 'Validated' else choose Hypothesis">-->
+<!--    ?</a>-->Status
+                                    </label>
+                                    <div class="col-sm-6">
+                                        <label class="radio-inline">
+                                              <input  ng-model="status" value="1" type="radio">Hypothesis
+                                        </label>
+                                        <label class="radio-inline">
+                                              <input ng-model="status"  value="2" type="radio">Validated
+                                       </label>
+                                    </div>
+                                </div>
+                                <!--status end-->
+                                <!--Priority months start-->
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Priority months: Select which months you'd like extra focus on this initiative</label>
+                                    <div class="col-sm-4">
+                                        <select multiple class="multi-select" on-finish-render="ngRepeatFinished" id="choosen_priority_months" ng-options="month.month_interger as month.full_month for month in priority_months" ng-model="choosen_priority_months">
+                                        </select>
+                                    </div>
+                                </div>
+                                <!--Priority months end-->
+                                <div class="error-msg col-md-12 text-center">
+
+                                </div>
+                                <div class="button-pane mrg10T">
+                                    <div class="mrg10T alert alert-danger display-none" id="apierror-message">
+                                        {{apierrormessage}}
+                                    </div>
+                                    <button type="submit" ng-if="edit_directiveFlag" ng-click="directiveValidation('update')" class="btn btn-block btn-primary">Update</button>
+                                    <button type="submit" ng-if="!edit_directiveFlag" ng-click="directiveValidation('create')" class="btn btn-block btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- start-->
+<!-- end-->
+<!-- end-->
+
+<!-- FRONTEND ELEMENTS -->
+<script>
+    var files;
+    var files_string = [];
+    var selectedfiles = [];
+    (function(window) {
+        function triggerCallback(e, callback) {
+            if (!callback || typeof callback !== 'function') {
+                return;
+            }
+            if (e.dataTransfer) {
+                files = e.dataTransfer.files;
+            }
+            else if (e.target) {
+                files = e.target.files;
+            }
+            callback.call(null, files);
+        }
+
+
+
+        function makeDroppable(ele, callback) {
+            var input = document.createElement('input');
+            input.setAttribute('type', 'file');
+            input.setAttribute('multiple', true);
+            input.style.display = 'none';
+            input.addEventListener('change', function(e) {
+                triggerCallback(e, callback);
+            });
+            ele.appendChild(input);
+
+            ele.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                ele.classList.add('dragover');
+            });
+
+            ele.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                ele.classList.remove('dragover');
+            });
+
+            ele.addEventListener('drop', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                ele.classList.remove('dragover');
+                triggerCallback(e, callback);
+            });
+
+            ele.addEventListener('click', function() {
+                input.value = null;
+                input.click();
+            });
+        }
+        window.makeDroppable = makeDroppable;
+    })(this);
+
+
+
+    (function(window) {
+        makeDroppable(window.document.querySelector('.demo-droppable'), function(files) {
+            var showError = false;
+            for (var i = 0; i < files.length; i++) {
+                if (files[i].size < (10 * 1024 * 1024)) //10 mb derived by calculation
+                {
+                    files[i]['file_id'] = selectedfiles.length + 1;
+                    selectedfiles.push(files[i]);
+                }
+                else {
+                    showError = true;
+                    $("#filesize-message").text($("#filesize-message").text() + files[i].name + " is too large " + "\n");
+                }
+            }
+
+            if (showError)
+                $("#filesize-message").show();
+            else {
+                $("#filesize-message").hide();
+                $("#filesize-message").text("");
+            }
+
+            for (var i = 0; i < selectedfiles.length; i++) {
+                selectedfiles[i]["imageurl"] = URL.createObjectURL(selectedfiles[i]);
+                var extension = selectedfiles[i]["name"].split('.').pop();
+                if (extension == 'jpg' || extension == 'png' || extension == 'jpeg' || extension == 'gif') {
+                    selectedfiles[i]["imagetype"] = "image";
+                }
+                else {
+                    selectedfiles[i]["imagetype"] = "file";
+                    selectedfiles[i]["displaytext"] = extension.toUpperCase();
+                }
+                angular.element(document.getElementById('createDirectiveController')).scope().adddescriptionfiles(selectedfiles);
+            }
+            angular.module('DrupalApp', [])
+                .controller('createDirectiveController', function($scope) {});
+        });
+    })(this);
+</script>

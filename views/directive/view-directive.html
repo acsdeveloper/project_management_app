@@ -1,0 +1,494 @@
+<div ng-include="'./views/user/user-menu.html'"></div>
+<div class="col-lg-12  col-md-12 col-md-12 col-md-12 grey" ng-controller="viewDirectiveController" ng-init="viewDirectiveInit();">
+  <title ng-bind="pageTitle"></title>
+  <!--<div class="hero-box hero-box-smaller full-bg-13 font-inverse" data-top-bottom="background-position: 50% 0px;" data-bottom-top="background-position: 50% -600px;">
+    <div class="container">
+      <h1 class="hero-heading wow fadeInDown" data-wow-duration="0.6s">View a directive</h1>
+    </div>
+    <div class="hero-overlay bg-black"></div>
+  </div>-->
+
+  <div id="page-content" class="col-md-10 center-margin frontend-components mrg25T">
+    <div class="row">
+      <div class="col-sm-12 mrg20B clearfix btn-inlinemob">
+        <div class="col-sm-1"> <button type=" submit " class="col-sm-2 btn btn-block btn-primary " ng-click="gotoEditDirective(directiveData.vid) ">Edit</button></div>
+        <div class="col-sm-1">
+          <button type="submit " ng-click="deleteDirective() " class="col-sm-2 btn delete btn-block btn-primary ">Delete</button>
+        </div>
+
+      </div>
+      <div class="col-md-8 ">
+        <div class="panel ">
+          <div class="panel-body ">
+            <div class="example-box-wrapper ">
+              <form class="form-horizontal bordered-row ">
+                <div class="form-group clearfix ">
+                  <label class="col-sm-3 control-label ">Title</label>
+
+                  <div class="col-sm-9 text-capitalize ">
+                    <h2>{{directiveData.title}}
+                    </h2>
+                  </div>
+                </div>
+                <!--description start-->
+
+                <div class="form-group clearfix ">
+                  <label class="col-sm-3 control-label ">Description</label>
+
+                  <div class="col-sm-9 ">
+                    <div class="col-md-12 col-sm-12 pad0A ">
+                      <div class="view-initiativessituationdiv ckeditor ">
+                        <div ng-bind-html="directiveData.body.und[0].value "></div>
+                      </div>
+                    </div>
+                    <!--<h3>{{directiveData.body.und[0].value}}</h3>-->
+                  </div>
+                </div>
+                <!--directive images start-->
+                <div class="form-group clearfix ">
+                  <label class="col-sm-3 control-label">Description files</label>
+                  <div class="col-sm-9  pad15T" ng-class="description_files.length>0?'image-preview-bg-overflow':''">
+                    <div class="col-sm-12 col-xs-12 pad15B" ng-repeat="image in description_files">
+                      <div class="col-sm-4 col-xs-6">
+                        <a ng-if="image.imagetype==='image'" href="{{image.processed_url}} " data-lightbox="example-11 ">
+                          <img class="example-image1 " ng-src="{{image.processed_url}} " width="100px " height="100px " alt="image-1" />
+                        </a>
+                        <a class="example-imag-link1 " href="{{image.processed_url}} " ng-if="image.imagetype!=='image' " target="_blank ">
+                          <div class="col-sm-12 image-preview-bg-doc">{{image.displaytext}}</div>
+                        </a>
+                      </div>
+                      <div class="col-sm-8 col-xs-6 pad0L pad15T mrg0A">
+                        <div class="col-sm-12 mrg0A pad5T">{{image.filename}}</div>
+                        <div class="col-sm-12 mrg0A pad5T">
+                          <div class="col-sm-5 mrg0A pad0A">
+                            <a href="{{image.processed_url}}" download>
+                              <i class="glyphicon glyphicon-download-alt font-size-12 "></i>
+                              <span class="pad5L">download</span>
+                            </a>
+                          </div>
+                          <div class=" col-sm-4 pad0A"><a class="cursor-pointer"><i class="glyphicon glyphicon-remove font-size-12 "></i><span class="pad5L" ng-click="imageDelete(image.fid)">delete</span></a></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--directive links start-->
+                <div class="form-group clearfix ">
+                  <label class="col-sm-3 control-label ">Links</label>
+
+                  <div class="col-sm-9 ">
+                    <div class="row ">
+                      <div class="col-md-2 " ng-repeat="link in directiveData.field_directives_link.und ">
+                        <h4class="mrg15B ">
+                          <a target="_blank " ng-href="{{link.url}} ">{{link.title}}</a>
+                          </h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group ">
+                  <label class="col-sm-3 control-label ">Status</label>
+                  <div class="col-sm-9 ">
+                    <div ng-if="directiveData.status==1 ">Hypothesis</div>
+                    <div ng-if="directiveData.status==2 ">Validated</div>
+                  </div>
+                </div>
+                <!--status end-->
+                <!--months start-->
+
+                <div class="form-group clearfix ">
+                  <label class="col-sm-3 control-label ">Priority Month(s)</label>
+
+                  <div class="col-sm-9 ">
+                    <div class="row ">
+                      <div class="col-md-2 " ng-repeat="month in selected_showmonth ">
+                        {{month.full_month}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <!-- Modal -->
+        <div id="myModal " class="modal fade " role="dialog ">
+          <div class="modal-dialog ">
+
+            <!-- Modal content-->
+            <div class="modal-content ">
+              <div class="modal-header ">
+                <button type="button " class="close " data-dismiss="modal ">&times;</button>
+                <h4 class="modal-title ">Modal Header</h4>
+              </div>
+              <div class="modal-body ">
+                <p>Some text in the modal.</p>
+              </div>
+              <div class="modal-footer ">
+                <button type="button " class="btn btn-default " data-dismiss="modal ">Close</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--adding initiative list below-->
+<div class="col-lg-12 col-md-12 col-md-12 col-md-12 pad0A grey " ng-init="viewInitiativesInit() " ng-controller="viewInitiativesController ">
+
+  <div ng-show="pageloader ">
+    <div class="page-loader-bg ">
+      <div class="content ">
+        Loading...
+        <!--<img src="../images/puff.svg " width="50 " alt=" ">-->
+      </div>
+    </div>
+  </div>
+  <div id="page-content " class="col-md-10 center-margin frontend-components mrg25T ">
+    <div class="row ">
+      <div class="col-md-12 ">
+        <h4 ng-controller=" viewDirectiveController ">Initiatives assigned to {{directiveData.title}}</h4>
+        <div class="for-large-device ">
+          <ul class="nav nav-tabs mrg25B ">
+
+            <li class="cursor-pointer " ng-repeat="month in totalMonths " ng-click="SelectMonth(month,month.month_int) " ng-class="month_string=='{{month.month_interger}}' ? 'active': '' ">
+              <a>{{month.full_month}}</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="for-mobile-device ">
+          <select class="form-control" ng-options="month as month.full_month for month in totalMonths" ng-model="month" ng-change="SelectMonth(month,month.month_int)" required ng-class="selectedMonth == '{{month}}'"><option style="display:none" value="">All Months</option></select>
+
+
+          <!--<select class="form-control ">
+            <option class="cursor-pointer " ng-click="selectAllMonth(month, 'all') " ng-class="month_string=='{{month.full_month}}' ? 'active': '' ">
+              <a>All months</a>
+            </option>
+            <option class="cursor-pointer " ng-repeat="month in totalMonths" ng-click="SelectMonth(month,$index+1) " ng-class="month_string=='{{month.full_month}}' ? 'active': '' ">
+              <a>{{month.full_month}}</a>
+            </option>
+          </select>-->
+        </div>
+
+
+      </div>
+    </div>
+    <div class="main-container ">
+
+      <div class="left-sidebar clearfix ">
+
+        <div class="panel-group " ng-controller="viewDirectiveController ">
+          <div class="panel ">
+            <button type="button " class="btn btn-primary btn-lg btn-block " ng-click="gotoCreateInitiative() ">
+              <span style="font-weight:700 ">+</span> New Initiative
+            </button>
+          </div>
+        </div>
+
+        <div class="for-large-device ">
+          <div class="panel-group " id="accordion ">
+            <div class="panel panel-default ">
+              <div class="panel-heading ">
+                <h4 class="panel-title ">
+                  <a class="accordion-toggle " data-toggle="collapse " data-parent="#accordion " href="#collapsetwos ">
+                    Filter by Product Manager
+                  </a>
+                </h4>
+              </div>
+              <div id="collapsetwos " class="panel-collapse collapse ">
+                <div class="panel-body ">
+                  <input type="text " ng-model="managersearch " class="width-100 " />
+                  <div class="view-initiative-checkboxpaneldiv ">
+                    <div class="checkbox view-initiative-checkboxdiv " ng-repeat="user in productManagerList | filter : managersearch ">
+                      <label>
+                        <input type="checkbox "  ng-change="selectProductManager(user) " ng-model="user.Selected ">
+                        {{user.users_name}}
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <!-- hide mob -->
+        <div class="for-mobile-device ">
+          <div class="panel-group " id="accordionmob ">
+
+
+            <div class="panel panel-default ">
+              <div class="panel-heading ">
+                <h4 class="panel-title ">
+                  <a class="collapsed accordion-toggle " data-toggle="collapse " data-parent="#accordionmob " href="#collapseMob">
+                    Filter by Product Manager
+                  </a>
+                </h4>
+              </div>
+              <!--/.panel-heading -->
+              <div id="collapseMob" class="panel-collapse collapse ">
+                <div class="panel-body ">
+                  <!-- nested -->
+                  <div class="panel-group " id="nested ">
+                    <div class="panel panel-default ">
+                      <div class="panel-heading ">
+                        <h4 class="panel-title ">
+                          <a class="collapsed accordion-toggle " data-toggle="collapse " data-parent="#nested " href="#nested-collapseTwo ">
+                            Filter by Product Manager
+                          </a>
+                        </h4>
+                      </div>
+                      <!--/.panel-heading -->
+                      <div id="nested-collapseTwo " class="panel-collapse collapse ">
+                        <div class="panel-body ">
+                          <input type="text " ng-model="managersearch " class="width-100 " />
+                          <div class="view-initiative-checkboxpaneldiv ">
+                            <div class="checkbox view-initiative-checkboxdiv " ng-repeat="user in productManagerList | filter : managersearch ">
+                              <label>
+                                <input type="checkbox "  ng-change="selectProductManager(user) " ng-model="user.Selected ">
+                                {{user.users_name}}
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <!--/.panel-body -->
+                      </div>
+                      <!--/.panel-collapse -->
+                    </div>
+                    <!-- /.panel -->
+                  </div>
+                  <!-- /.panel-group -->
+                  <!-- nested -->
+                </div>
+                <!--/.panel-body -->
+              </div>
+              <!--/.panel-collapse -->
+            </div>
+            <!-- /.panel -->
+          </div>
+          <!-- /.panel-group -->
+        </div>
+
+      </div>
+      <div class="right-side-block ">
+        <div class="row ">
+          <div class="col-sm-12 col-md-12 col-lg-9 ">
+            <div class="panel-group" id="accordion">
+              <div class="panel">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Done</a>
+                  </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in">
+                  <div class="panel-body">
+                    <div class="example-box-wrapper view-initiative-detaildiv ">
+                      <form class="form-horizontal clearfix ">
+                        <div class="col-sm-12 col-md-12 pad0A border-top-graydashed pad10T " ng-repeat="val in statedoneinitiatives=( initiativesList | filter: 'Done') ">
+                          <div class="mrg15T mrg15B col-sm-12 col-md-12 pad0A ">
+                            <h3 ng-click="gotoViewInitiative(val.initiative_id) " ng-bind-html="val.node_title " class="cursor-pointer mrg15L "></h3>
+                          </div>
+                          <div class="col-sm-12 col-md-12 col-lg-6 pad0A ">
+                            <div class="character-remaining clear input-description ">
+                              <div class="clearfix mrg5T clearfix taginlinemob ">
+                                <div class="col-sm-12 col-md-5 col-lg-5 inlinecol "><span class="left-label ">Directives:</span></div>
+                                <div class="col-sm-12 col-md-7 col-lg-7 mrg5T tag-span inlinecol ">
+                                  <div ng-repeat="dir in val.directivesList " ng-click="gotoViewDirectivePage(dir.id) " class="cursor-pointer bs-label label-info ">
+                                    {{dir.name}}
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="mrg15T clearfix mrg5T pad0A clearfix taginlinemob ">
+                                <div class="col-sm-12 col-md-5 col-lg-5 inlinecol "><span class="left-label ">Product Manager:</span></div>
+                                <div class="col-sm-12 col-md-7 col-lg-7 mrg5T tag-span inlinecol ">
+                                  <div ng-repeat="user in val.productmanagersList " ng-click="gotoUserProfile(user.name) " class="cursor-pointer bs-label label-info ">
+                                    {{user.name}}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-sm-12 col-md-12 col-lg-6 clearfix pad0A ">
+
+                            <div class="col-sm-5 col-xs-6 remainingdays ">
+                              <div class="character-remaining clear input-description ">
+                                2 DEV
+                                <span ng-if="val.devDays>1">days</span>
+                                <span ng-if="val.devDays<=1">day</span>
+                              </div>
+                              <div class="character-remaining clear input-description">
+                                3 UX
+                                <span ng-if="val.uxDays>1">days</span>
+                                <span ng-if="val.uxDays<=1">day</span>
+                              </div>
+                              <div class="character-remaining clear input-description">
+                                4UI
+                                <span ng-if="val.uiDays>1">days</span>
+                                <span ng-if="val.uiDays<=1">day</span>
+                              </div>
+                            </div>
+                            <div class="col-sm-7 col-xs-6">
+                              <div class="character-remaining clear input-description">
+                                <div class="plandate"><span>Target live date: </span>asdfd</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-12 mrg50T" ng-show="!statedoneinitiatives.length&&!pageloader">
+                          <h3 class="text-center">No Initiatives have been completed in {{month_stringname}}</h3>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="panel mrg10T">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">In progress</a>
+                  </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse in">
+                  <div class="panel-body">
+                    <div class="example-box-wrapper view-initiative-detaildiv">
+                      <form class="form-horizontal clearfix">
+                        <div class="col-sm-12 col-md-12 pad0A clearfix  border-top-graydashed pad10T" ng-repeat="val in statedoinginitiatives=( initiativesList | filter:'Doing')">
+                          <div class="mrg15T mrg15B col-sm-12 col-md-12 pad0A">
+                            <h3 ng-click="gotoViewInitiative(val.initiative_id)" class="cursor-pointer mrg15L" ng-bind-html="val.node_title"></h3>
+                          </div>
+                          <div class="col-sm-12 col-md-12 col-lg-6 pad0A clearfix">
+                            <div class="character-remaining clear input-description">
+                              <div class="clearfix mrg5T">
+                                <div class="col-sm-12 col-md-5 col-lg-5"><span class="left-label">Directives:</span></div>
+                                <div class="col-sm-12 col-md-7 col-lg-7 mrg5T  tag-span">
+                                  <div ng-repeat="dir in val.directivesList" ng-click="gotoViewDirectivePage(dir.id)" class="cursor-pointer bs-label label-info ">
+                                    {{dir.name}}
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="mrg15T clearfix mrg5T pad0A clearfix taginlinemob">
+                                <div class="col-sm-12 col-md-5 col-lg-5 inlinecol"><span class="left-label">Product Manager:</span></div>
+                                <div class="col-sm-12 col-md-7 col-lg-7 mrg5T tag-span inlinecol">
+                                  <div ng-repeat="user in val.productmanagersList" ng-click="gotoUserProfile(user.name)" class="cursor-pointer bs-label label-info ">
+                                    {{user.name}}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-sm-12 col-md-12 col-lg-6 clearfix pad0A">
+
+                            <div class="col-sm-5 col-xs-6 remainingdays">
+                              <div class="character-remaining clear input-description">
+                                {{val.devDays}} DEV
+                                <span ng-if="val.devDays>1">days</span>
+                                <span ng-if="val.devDays<=1">day</span>
+                              </div>
+                              <div class="character-remaining clear input-description">
+                                {{val.uxDays}} UX
+                                <span ng-if="val.uxDays>1">days</span>
+                                <span ng-if="val.uxDays<=1">day</span>
+                              </div>
+                              <div class="character-remaining clear input-description">
+                                {{val.uiDays}} UI
+                                <span ng-if="val.uiDays>1">days</span>
+                                <span ng-if="val.uiDays<=1">day</span>
+                              </div>
+                            </div>
+                            <div class="col-sm-7 col-xs-6">
+                              <div class="character-remaining clear input-description">
+                                <div class="plandate"><span>Target live date: </span>{{ val.live_date | date : "dd/MM/y"}}</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-12 mrg50T" ng-show="!statedoinginitiatives.length&&!pageloader">
+                          <h3 class="text-center">No Initiatives have been yet moved to 'In Progress' for {{month_stringname}}</h3>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="panel mrg10T">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">To Do</a>
+                  </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse in">
+                  <div class="panel-body">
+                    <div class="example-box-wrapper view-initiative-detaildiv">
+                      <form class="form-horizontal clearfix">
+                        <div class="col-sm-12 col-md-12 pad0A border-top-graydashed pad10T" ng-repeat="val in statetodoinitiatives=( initiativesList | filter:'To do')">
+                          <div class="mrg15T mrg15B col-sm-12 col-md-12 pad0A">
+                            <h3 ng-click="gotoViewInitiative(val.initiative_id)" class="cursor-pointer mrg15L" ng-bind-html="val.node_title"></h3>
+                          </div>
+                          <div class="col-sm-12 col-md-12 col-lg-6 clearfix pad0A">
+                            <div class="character-remaining clear input-description">
+                              <div class="clearfix mrg5T clearfix taginlinemob">
+                                <div class="col-sm-12 col-md-5 col-lg-5 inlinecol"><span class="left-label">Directives:</span></div>
+                                <div class="col-sm-12 col-md-7 col-lg-7 mrg5T  tag-span inlinecol">
+                                  <div ng-repeat="dir in val.directivesList" ng-click="gotoViewDirectivePage(dir.id)" class="cursor-pointer bs-label label-info ">
+                                    {{dir.name}}
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="mrg15T clearfix mrg5T clearfix taginlinemob">
+                                <div class="col-sm-12 col-md-5 col-lg-5 inlinecol"><span class="left-label">Product Manager:</span></div>
+                                <div class="col-sm-12 col-md-7 col-lg-7 mrg5T tag-span inlinecol">
+                                  <div ng-repeat="user in val.productmanagersList" ng-click="gotoUserProfile(user.name)" class="cursor-pointer bs-label label-info ">
+                                    {{user.name}}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-sm-12 col-md-12 col-lg-6 pad0A clearfix">
+                            <div class="col-sm-5 col-xs-6 remainingdays">
+                              <div class="character-remaining clear input-description">
+                                {{val.devDays}} DEV
+                                <span ng-if="val.devDays>1">days</span>
+                                <span ng-if="val.devDays<=1">day</span>
+                              </div>
+                              <div class="character-remaining clear input-description">
+                                {{val.uxDays}} UX
+                                <span ng-if="val.uxDays>1">days</span>
+                                <span ng-if="val.uxDays<=1">day</span>
+                              </div>
+                              <div class="character-remaining clear input-description">
+                                {{val.uiDays}} UI
+                                <span ng-if="val.uiDays>1">days</span>
+                                <span ng-if="val.uiDays<=1">day</span>
+                              </div>
+                            </div>
+                            <div class="col-sm-7 col-xs-6">
+                              <div class="character-remaining clear input-description">
+                                <div class="plandate"><span>Target live date: </span>{{ val.live_date | date : "dd/MM/y"}}</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-12 mrg50T" ng-show="!statetodoinitiatives.length&&!pageloader">
+                          <h3 class="text-center">No initiatives have been created for {{month_stringname}}</h3>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <script>
+        $(document).ready(function() {
+          $(".panel-title a").click(function(e) {
+            e.preventDefault();
+          });
+        });
+      </script>

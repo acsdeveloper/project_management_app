@@ -1,0 +1,523 @@
+<div ng-include="'./views/user/user-menu.html'"></div>
+<div class="col-lg-12 col-md-12 col-md-12 col-md-12 " ng-controller="viewOrgController">
+    <title ng-bind="pageTitle"></title>
+    <div class="hero-box hero-box-smaller full-bg-13 font-inverse" data-top-bottom="background-position: 50% 0px;" data-bottom-top="background-position: 50% -600px;">
+        <div class="container">
+            <h1 class="hero-heading wow fadeInDown" data-wow-duration="0.6s">View All Users</h1>
+        </div>
+        <div class="hero-overlay bg-black"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+
+        </div>
+        <div class="col-md-6">
+
+
+            <!-- Data tables -->
+
+            <!--<link rel="stylesheet" type="text/css" href="../../assets/widgets/datatable/datatable.css">-->
+            <script type="text/javascript" src="./assets/widgets/datatable/datatable.js"></script>
+            <script type="text/javascript" src="./assets/widgets/datatable/datatable-bootstrap.js"></script>
+            <script type="text/javascript" src="./assets/widgets/datatable/datatable-responsive.js"></script>
+
+            <div id="page-title" class="mrg20T mrg20B">
+                <h2 class="mrg10T">Organisation overview</h2>
+                <p class="mrg10T">View and manage your organisation's members here</p>
+            </div>
+
+            <div class="panel">
+                <div class="panel-body">
+                    <h3 class="title-hero">
+                        Stakeholders
+                    </h3>
+                    <div class="example-box-wrapper">
+                        <table id="datatable-responsive" class="table table-striped table-bordered responsive no-wrap mrg15b" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Member since</th>
+                                    <th>Capacity</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="x in user.stakeholders">
+                                    <td ng-click="gotoUserProfile(x.userName)" class="cursor-pointer">{{ x.userName }}</td>
+                                    <td>Stakeholder</td>
+                                    <td>{{ x.created }}</td>
+                                    <td ng-click="gotoUserProfile(x.userName)" class="cursor-pointer">Manage capacity</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <div class="panel-group mrg15T" id="accordion">
+                            <div class="panel">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a class="cursor-pointer" data-toggle="collapse" data-target="#collapseOne">
+										Invite a new Stakeholder
+                                    </a>
+                                    </h4>
+                                </div>
+
+                                <div id="collapseOne" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="">
+                                            <div class="">
+                                                <div class="example-box-wrapper">
+                                                    <form class="form-horizontal bordered-row" ng-submit="submitForm(5)">
+                                                        <div class=" form-group">
+                                                            <label class="col-sm-3 control-label ">Name</label>
+                                                            <div class="col-sm-6 ">
+                                                                <input type="text " class="form-control " ng-model="form.userName " id=" " placeholder="Enter the name ">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-3 control-label ">Email address</label>
+                                                            <div class="col-sm-6 ">
+                                                                <input type="text " class="form-control " ng-model="form.email " id=" " placeholder="Enter the Email ">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="button-pane ">
+                                                            <button type="submit " class="btn btn-block btn-primary ">Submit</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel ">
+                <div class="panel-body ">
+                    <h3 class="title-hero ">
+                        Product Managers
+                    </h3>
+                    <div class="example-box-wrapper ">
+                        <table id="datatable-responsive " class="table table-striped table-bordered responsive no-wrap mrg15b " cellspacing="0 " width="100% ">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Member since</th>
+
+                                    <th>Capacity</th>
+                                </tr>
+                            </thead>
+
+
+                            <tbody>
+                                <tr ng-repeat="x in user.managers ">
+                                    <td ng-click="gotoUserProfile(x.userName)" class="cursor-pointer">{{ x.userName }}</td>
+                                    <td>Product Manager</td>
+                                    <td>{{ x.created }}</td>
+                                    <td ng-click="gotoUserProfile(x.userName)" class="cursor-pointer">Manage capacity</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <div class="panel-group mrg15T " id="accordion ">
+                            <div class="panel ">
+                                <div class="panel-heading ">
+                                    <h4 class="panel-title ">
+                                        <a class="cursor-pointer" data-toggle="collapse" data-target="#collapseTwo">
+										Invite a new Product Manager
+                                    </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="">
+                                            <div class="">
+                                                <div class="example-box-wrapper">
+                                                    <form class="form-horizontal bordered-row" ng-submit="submitForm(4)">
+                                                        <div class=" form-group">
+                                                            <label class="col-sm-3 control-label ">Name</label>
+                                                            <div class="col-sm-6 ">
+                                                                <input type="text " class="form-control " ng-model="form.userName" id=" " placeholder="Enter the name ">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-3 control-label ">Email address</label>
+                                                            <div class="col-sm-6 ">
+                                                                <input type="text " class="form-control " ng-model="form.email " id=" " placeholder="Enter the Email ">
+                                                            </div>
+                                                        </div>
+                                                        <div class="button-pane ">
+                                                            <button type="submit " class="btn btn-block btn-primary ">Submit</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="panel ">
+                <div class="panel-body ">
+                    <h3 class="title-hero ">
+                        Business Owners
+                    </h3>
+                    <div class="example-box-wrapper ">
+                        <table id="datatable-responsive " class="table table-striped table-bordered responsive no-wrap mrg15b " cellspacing="0 " width="100% ">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Member since</th>
+
+                                    <th>Capacity</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="x in user.businesses ">
+                                    <td ng-click="gotoUserProfile(x.userName)" class="cursor-pointer">{{ x.userName }}</td>
+                                    <td>Business Owner</td>
+                                    <td>{{ x.created }}</td>
+                                    <td ng-click="gotoUserProfile(x.userName)" class="cursor-pointer">Manage capacity</td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <div class="panel-group mrg15T " id="accordion ">
+                            <div class="panel ">
+                                <div class="panel-heading ">
+                                    <h4 class="panel-title ">
+                                        <a class="cursor-pointer" data-toggle="collapse" data-target="#collapseThree">
+										Invite a new Business Owner
+                                    </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseThree" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="">
+                                            <div class="">
+                                                <div class="example-box-wrapper">
+                                                    <form class="form-horizontal bordered-row" ng-submit="submitForm(9)">
+                                                        <div class=" form-group">
+                                                            <label class="col-sm-3 control-label ">Name</label>
+                                                            <div class="col-sm-6 ">
+                                                                <input type="text " class="form-control " ng-model="form.userName " id=" " placeholder="Enter the name ">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-3 control-label ">Email address</label>
+                                                            <div class="col-sm-6 ">
+                                                                <input type="text " class="form-control " ng-model="form.email " id=" " placeholder="Enter the Email ">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="button-pane ">
+                                                            <button type="submit " class="btn btn-block btn-primary ">Submit</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel ">
+                <div class="panel-body ">
+                    <h3 class="title-hero ">
+                        UI Designers
+                    </h3>
+                    <div class="example-box-wrapper ">
+                        <table id="datatable-responsive " class="table table-striped table-bordered responsive no-wrap mrg15b " cellspacing="0 " width="100% ">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Member since</th>
+
+                                    <th>Capacity</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="x in user.ui ">
+                                    <td ng-click="gotoUserProfile(x.userName)" class="cursor-pointer">{{ x.userName }}</td>
+                                    <td>UI Designer</td>
+                                    <td>{{ x.created }}</td>
+                                    <td ng-click="gotoUserProfile(x.userName)" class="cursor-pointer">Manage capacity</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <div class="panel-group mrg15T " id="accordion ">
+                            <div class="panel ">
+                                <div class="panel-heading ">
+                                    <h4 class="panel-title ">
+                                        <a class="cursor-pointer" data-toggle="collapse" data-target="#collapseFour">
+										Invite a new UI Designer
+                                    </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseThree" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="">
+                                            <div class="">
+                                                <div class="example-box-wrapper">
+                                                    <form class="form-horizontal bordered-row" ng-submit="submitForm(6)">
+                                                        <div class=" form-group">
+                                                            <label class="col-sm-3 control-label ">Name</label>
+                                                            <div class="col-sm-6 ">
+                                                                <input type="text " class="form-control " ng-model="form.userName " id=" " placeholder="Enter the name ">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-3 control-label ">Email address</label>
+                                                            <div class="col-sm-6 ">
+                                                                <input type="text " class="form-control " ng-model="form.email " id=" " placeholder="Enter the Email ">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="button-pane ">
+                                                            <button type="submit " class="btn btn-block btn-primary ">Submit</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel ">
+                <div class="panel-body ">
+                    <h3 class="title-hero ">
+                        UX Designers
+                    </h3>
+                    <div class="example-box-wrapper ">
+                        <table id="datatable-responsive " class="table table-striped table-bordered responsive no-wrap mrg15b " cellspacing="0 " width="100% ">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Member since</th>
+
+                                    <th>Capacity</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="x in user.ux ">
+                                    <td ng-click="gotoUserProfile(x.userName)" class="cursor-pointer">{{ x.userName }}</td>
+                                    <td>UX Designer</td>
+                                    <td>{{ x.created }}</td>
+                                    <td ng-click="gotoUserProfile(x.userName)" class="cursor-pointer">Manage capacity</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <div class="panel-group mrg15T " id="accordion ">
+                            <div class="panel ">
+                                <div class="panel-heading ">
+                                    <h4 class="panel-title ">
+                                        <a class="cursor-pointer" data-toggle="collapse" data-target="#collapsefive">
+										Invite a new UX Designer
+                                    </a>
+                                    </h4>
+                                </div>
+                                <div id="collapsefive" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="">
+                                            <div class="">
+                                                <div class="example-box-wrapper">
+                                                    <form class="form-horizontal bordered-row" ng-submit="submitForm(7)">
+                                                        <div class=" form-group">
+                                                            <label class="col-sm-3 control-label ">Name</label>
+                                                            <div class="col-sm-6 ">
+                                                                <input type="text " class="form-control " ng-model="form.userName " id=" " placeholder="Enter the name ">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-3 control-label ">Email address</label>
+                                                            <div class="col-sm-6 ">
+                                                                <input type="text " class="form-control " ng-model="form.email " id=" " placeholder="Enter the Email ">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="button-pane ">
+                                                            <button type="submit " class="btn btn-block btn-primary ">Submit</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="panel ">
+                <div class="panel-body ">
+                    <h3 class="title-hero ">
+                        QA
+                    </h3>
+                    <div class="example-box-wrapper ">
+                        <table id="datatable-responsive " class="table table-striped table-bordered responsive no-wrap mrg15b " cellspacing="0 " width="100% ">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Member since</th>
+
+                                    <th>Capacity</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="x in user.qa ">
+                                    <td ng-click="gotoUserProfile(x.userName)" class="cursor-pointer">{{ x.userName }}</td>
+                                    <td>QA</td>
+                                    <td>{{ x.created }}</td>
+                                    <td ng-click="gotoUserProfile(x.userName)" class="cursor-pointer">Manage capacity</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <div class="panel-group mrg15T " id="accordion ">
+                            <div class="panel ">
+                                <div class="panel-heading ">
+                                    <h4 class="panel-title ">
+                                        <a class="cursor-pointer" data-toggle="collapse" data-target="#collapseqa">
+										Invite a new QA
+                                    </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseqa" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="">
+                                            <div class="">
+                                                <div class="example-box-wrapper">
+                                                    <form class="form-horizontal bordered-row" ng-submit="submitForm(10)">
+                                                        <div class=" form-group">
+                                                            <label class="col-sm-3 control-label ">Name</label>
+                                                            <div class="col-sm-6 ">
+                                                                <input type="text " class="form-control " ng-model="form.userName " id=" " placeholder="Enter the name ">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-3 control-label ">Email address</label>
+                                                            <div class="col-sm-6 ">
+                                                                <input type="text " class="form-control " ng-model="form.email " id=" " placeholder="Enter the Email ">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="button-pane ">
+                                                            <button type="submit " class="btn btn-block btn-primary ">Submit</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel ">
+                <div class="panel-body ">
+                    <h3 class="title-hero ">
+                        Developers
+                    </h3>
+                    <div class="example-box-wrapper ">
+                        <table id="datatable-responsive " class="table table-striped table-bordered responsive no-wrap mrg15b " cellspacing="0 " width="100% ">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Member since</th>
+
+                                    <th>Capacity</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="x in user.dev ">
+                                    <td ng-click="gotoUserProfile(x.userName)" class="cursor-pointer">{{ x.userName }}</td>
+                                    <td>Developer</td>
+                                    <td>{{ x.created }}</td>
+                                    <td ng-click="gotoUserProfile(x.userName)" class="cursor-pointer">Manage capacity</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <div class="panel-group mrg15T " id="accordion ">
+                            <div class="panel ">
+                                <div class="panel-heading ">
+                                    <h4 class="panel-title ">
+                                        <a class="cursor-pointer" data-toggle="collapse" data-target="#collapsesix">
+										Invite a new Developer
+                                    </a>
+                                    </h4>
+                                </div>
+                                <div id="collapsesix" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="">
+                                            <div class="">
+                                                <div class="example-box-wrapper">
+                                                    <form class="form-horizontal bordered-row" ng-submit="submitForm(8)">
+                                                        <div class=" form-group">
+                                                            <label class="col-sm-3 control-label ">Name</label>
+                                                            <div class="col-sm-6 ">
+                                                                <input type="text " class="form-control " ng-model="form.userName " id=" " placeholder="Enter the name ">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-3 control-label ">Email address</label>
+                                                            <div class="col-sm-6 ">
+                                                                <input type="text " class="form-control " ng-model="form.email " id=" " placeholder="Enter the Email ">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="button-pane ">
+                                                            <button type="submit " class="btn btn-block btn-primary ">Submit</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

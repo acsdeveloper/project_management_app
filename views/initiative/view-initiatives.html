@@ -1,0 +1,474 @@
+<div ng-include="'./views/user/user-menu.html'"></div>
+
+<title ng-bind="pageTitle"></title>
+<div class="col-lg-12  col-md-12 col-md-12 col-md-12 pad0A grey" ng-init="viewInitiativesInit()" ng-controller="viewInitiativesController">
+    <div ng-show="pageloader">
+        <div class="page-loader-bg">
+            <div class="content">
+                Loading...
+                <!--<img src="../images/puff.svg" width="50" alt="">-->
+            </div>
+        </div>
+    </div>
+    <!--mobile h1 start-->
+    <div class="hidden-xs hidden-lg">
+        <h1 class="hero-heading wow fadeInDown" data-wow-duration="0.6s">View All Initiatives</h1>
+    </div>
+    <!--mobile h1 end-->
+    <div class="hero-box hero-box-smaller full-bg-13 font-inverse hidden-xs" data-top-bottom="background-position: 50% 0px;" data-bottom-top="background-position: 50% -600px;">
+        <div class="container">
+            <h1 class="hero-heading wow fadeInDown" data-wow-duration="0.6s">View All Initiatives</h1>
+        </div>
+        <div class="hero-overlay bg-black"></div>
+    </div>
+    <div id="page-content" class="col-md-10 center-margin frontend-components mrg25T">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="for-large-device">
+                    <ul class="nav nav-tabs mrg25B">
+
+                        <li class="cursor-pointer" ng-repeat="month in totalMonths" ng-click="SelectMonth(month,month.month_int)" ng-class="month_string == '{{month.month_interger}}' ? 'active':''">
+                            <a>{{month.full_month}}</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="for-mobile-device">
+                    <div class="initive-btn">
+                        <button type="button" class="btn btn-primary" ng-click="gotoCreateInitiative()">
+        				    <span style="font-weight:700; font-size:16px; position:relative; top:2px; left:0px">+</span> New Initiative
+        			    </button>
+                    </div>
+
+                    <select class="form-control" ng-options="month as month.full_month for month in totalMonths" ng-model="month" ng-change="SelectMonth(month,month.month_int)" required ng-class="selectedMonth == '{{month}}'"><option style="display:none" value="">All Months</option></select>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-container">
+
+            <div class="left-sidebar clearfix">
+
+                <div class="panel-group">
+                    <div class="panel for-large-device">
+                        <button type="button" class="btn btn-primary btn-lg btn-block" ng-click="gotoCreateInitiative()">
+        				    <span  style="font-weight:700; font-size:16px; position:relative; top:2px; left:0px">+</span> New Initiative
+        			    </button>
+                    </div>
+                </div>
+
+                <div class="for-large-device">
+                    <div class="panel-group" id="accordion">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseones">
+            							Filter by Directive
+            						</a>
+                                </h4>
+                            </div>
+                            <div id="collapseones" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    <input type="text" ng-model="directivesearch" class="width-100 view-initiative-searchtext mrg10B" />
+                                    <div class="view-initiative-checkboxpaneldiv">
+                                        <div class="checkbox view-initiative-checkboxdiv" ng-repeat="directive in directivesList | filter :directivesearch | orderBy: 'title'">
+                                            <label>
+            									<input type="checkbox"   ng-change="selectDirective(directive)" ng-model="directive.Selected">
+            									{{directive.title}}
+            								</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapsetwos">
+            							Filter by Product Manager
+            						</a>
+                                </h4>
+                            </div>
+                            <div id="collapsetwos" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <input type="text" ng-model="managersearch" class="width-100 view-initiative-searchtext mrg10B" />
+                                    <div class="view-initiative-checkboxpaneldiv">
+                                        <div class="checkbox view-initiative-checkboxdiv" ng-repeat="user in productManagerList | filter : managersearch">
+                                            <label>
+            									<input type="checkbox"  ng-change="selectProductManager(user)" ng-model="user.Selected">
+            									{{user.users_name}}
+            								</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- hide mob -->
+                <div class="for-mobile-device">
+                    <div class="panel-group" id="accordionmob">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="collapsed accordion-toggle" data-toggle="collapse" data-parent="#accordionmob" href="#collapseMob">
+        							Filter Inititiatives
+        						</a>
+                                </h4>
+                            </div>
+                            <!--/.panel-heading -->
+                            <div id="collapseMob" class="panel-collapse collapse">
+                                <div class="panel-body">
+
+                                    <!-- nested -->
+
+
+                                    <div class="panel-group" id="nested">
+
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#nested" href="#nested-collapseOne" class="accordion-toggle">
+        											Filter by Directive
+        										</a>
+                                                </h4>
+                                            </div>
+                                            <!--/.panel-heading -->
+                                            <div id="nested-collapseOne" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <input type="text" ng-model="directivesearch" class="width-100 view-initiative-searchtext mrg10B" />
+                                                    <div class="view-initiative-checkboxpaneldiv">
+                                                        <div class="checkbox view-initiative-checkboxdiv text-capitalize" ng-repeat="directive in directivesList | filter :directivesearch | orderBy: 'title'">
+                                                            <label>
+        													<input type="checkbox"   ng-change="selectDirective(directive)" ng-model="directive.Selected">
+        													<span class="mytext">{{directive.title}}</span>
+        												</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--/.panel-body -->
+                                            </div>
+                                            <!--/.panel-collapse -->
+                                        </div>
+                                        <!-- /.panel -->
+
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a class="collapsed accordion-toggle" data-toggle="collapse" data-parent="#nested" href="#nested-collapseTwo">
+        											Filter by Product Manager
+        										</a>
+                                                </h4>
+                                            </div>
+                                            <!--/.panel-heading -->
+                                            <div id="nested-collapseTwo" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    <input type="text" ng-model="managersearch" class="width-100 view-initiative-searchtext mrg10B" />
+                                                    <div class="view-initiative-checkboxpaneldiv">
+                                                        <div class="checkbox view-initiative-checkboxdiv" ng-repeat="user in productManagerList | filter : managersearch">
+                                                            <label>
+        													<input type="checkbox"  ng-change="selectProductManager(user)" ng-model="user.Selected">
+        													<span class="mytext">{{user.users_name}}</span>
+        												</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--/.panel-body -->
+                                            </div>
+                                            <!--/.panel-collapse -->
+                                        </div>
+                                        <!-- /.panel -->
+                                    </div>
+                                    <!-- /.panel-group -->
+                                    <!-- nested -->
+                                </div>
+                                <!--/.panel-body -->
+                            </div>
+                            <!--/.panel-collapse -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                    <!-- /.panel-group -->
+                </div>
+            </div>
+            <div class="right-side-block">
+                <div class="row">
+                    <!--<ul class="nav nav-tabs mrg25B">
+                        <li><b>Total Number of Devlopers : </b>{{capacityList.data.totalNumberDev}}</li>
+                        <li><b>Total Capacity : </b>{{capacityList.data.totalCapacity}}</li>
+                        <li><b>Assigned : </b>{{capacityList.data.assigned}}</li>
+                        <li><b>Available : </b>{{capacityList.data.available}}</li>
+                        <li><b>Expired : </b>{{capacityList.data.expired}}</li>
+                    </ul>
+                </div>-->
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-9">
+                            <div class="panel-group" id="accordion">
+                                <div class="panel">
+                                    <div class="example-box-wrapper view-initiative-detaildiv mrg25B mrg25T pad15L">
+                                        <h3 class="pad15B">Capacity</h3>
+                                        <div class="col-lg-4">
+                                            <ul class="">
+                                                <li><b>Total Number of Devlopers : </b>{{capacityList.data.totalNumberDev}}</li>
+                                                <li><b>Total Capacity : </b>{{capacityList.data.totalCapacity}}</li>
+                                                <li><b>Developer days assigned : </b>{{capacityList.data.assigned}}</li>
+                                                <li><b>Developer days available : </b>{{capacityList.data.available}}</li>
+                                                <li><b>Expired : </b>{{capacityList.data.expired}}</li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <ul class="">
+                                                <!--<li><b>Total Number of Devlopers : </b>{{capacityList.data.totalNumberDev}}</li>-->
+                                                <!--<li><b>Total Capacity : </b>{{capacityList.data.totalCapacity}}</li>-->
+                                                <li><b>UX days assigned : </b>{{capacityList.data.uxAssigned}}</li>
+                                                <li><b>UX days available : </b>{{capacityList.data.uxAvailable}}</li>
+                                                <!--<li><b>Expired : </b>{{capacityList.data.expired}}</li>-->
+                                            </ul>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <ul class="">
+                                                <!--<li><b>Total Number of Devlopers : </b>{{capacityList.data.totalNumberDev}}</li>-->
+                                                <!--<li><b>Total Capacity : </b>{{capacityList.data.totalCapacity}}</li>-->
+                                                <li><b>QA days assigned : </b>{{capacityList.data.qaAssigned}}</li>
+                                                <li><b>QA days available : </b>{{capacityList.data.qaavailable}}</li>
+                                                <!--<li><b>Expired : </b>{{capacityList.data.expired}}</li>-->
+                                            </ul>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <ul class="">
+                                                <!--<li><b>Total Number of Devlopers : </b>{{capacityList.data.totalNumberDev}}</li>-->
+                                                <!--<li><b>Total Capacity : </b>{{capacityList.data.totalCapacity}}</li>-->
+                                                <li><b>UI days assigned : </b>{{capacityList.data.uiAssigned}}</li>
+                                                <li><b>UI days available : </b>{{capacityList.data.uiAvailable}}</li>
+                                                <!--<li><b>Expired : </b>{{capacityList.data.expired}}</li>-->
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel" ng-hide="!statedoneinitiatives.length&&!statedoinginitiatives.length&&!statetodoinitiatives.length">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Done</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseOne" class="panel-collapse collapse in">
+                                        <div class="panel-body pad0A">
+                                            <div class="example-box-wrapper view-initiative-detaildiv">
+                                                <div class="col-sm-12 col-md-12  col-lg-12  border-top-graydashed pad10T" ng-repeat="val in statedoneinitiatives=( initiativesList | filter:'Done')">
+
+                                                    <div class="col-sm-12 col-md-12  col-lg-12 mrg15T mrg15B pad0A ">
+                                                        <h3 ng-click="gotoViewInitiative(val.initiative_id,val.node_title)" class="cursor-pointer pad0A text-capitalize" ng-bind-html="val.node_title"></h3>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-12 col-lg-6 pad0A">
+                                                        <div class="character-remaining clear input-description">
+                                                            <div class="clearfix mrg5T taginlinemob">
+                                                                <div class="col-sm-12 col-md-5 col-lg-5 inlinecol pad0A"><span class="left-label">Directives:</span></div>
+                                                                <div class="col-sm-12 col-md-7 col-lg-7 mrg5T pad0A tag-span inlinecol">
+                                                                    <div ng-repeat="dir in val.directivesList" ng-click="gotoViewDirectivePage(dir.id,dir.name)" class="cursor-pointer bs-label label-info ">
+                                                                        {{dir.name}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="mrg15T clearfix mrg5T taginlinemob">
+                                                                <div class="col-sm-12 col-md-5 col-lg-5 inlinecol pad0A"><span class="left-label">Product Manager:</span></div>
+                                                                <div class="col-sm-12 col-md-7 col-lg-7 pad0A mrg5T tag-span inlinecol">
+                                                                    <div ng-repeat="user in val.productmanagersList" ng-click="gotoUserProfile(user.name)" class="cursor-pointer bs-label label-info ">
+                                                                        {{user.name}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-12 col-lg-6 pad0A clearfix">
+                                                        <div class="col-sm-5 col-xs-6 remainingdays">
+                                                            <div class="character-remaining clear input-description">
+                                                                <i class="fa fa-check inicheked" aria-hidden="true" ng-if="val.dev_complete == '1'"></i> {{val.devDays}} DEV
+                                                                <span ng-if="val.devDays>1">days</span>
+                                                                <span ng-if="val.devDays<=1">day</span>
+                                                            </div>
+                                                            <div class="character-remaining clear input-description">
+                                                                <i class="fa fa-check inicheked" aria-hidden="true" ng-if="val.ux_complete == '1'"></i> {{val.uxDays}} UX
+                                                                <span ng-if="val.uxDays>1">days</span>
+                                                                <span ng-if="val.uxDays<=1">day</span>
+                                                            </div>
+                                                            <div class="character-remaining clear input-description">
+                                                                <i class="fa fa-check inicheked" aria-hidden="true" ng-if="val.ui_complete == '1'"></i> {{val.uiDays}} UI
+                                                                <span ng-if="val.uiDays>1">days</span>
+                                                                <span ng-if="val.uiDays<=1">day</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-7 col-xs-6">
+                                                            <div class="character-remaining clear input-description">
+                                                                <div class="plandate"><span>Target live date: </span>{{ val.live_date | date : "dd/MM/y"}}</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-12 col-lg-12" ng-show="!statedoneinitiatives.length&&!pageloader">
+                                                    <h4 class="text-center">No Initiatives have been completed in {{month_stringname}}</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel mrg10T" ng-hide="!statedoneinitiatives.length&&!statedoinginitiatives.length&&!statetodoinitiatives.length">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">In progress</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseTwo" class="panel-collapse collapse in">
+                                        <div class="panel-body pad0A">
+                                            <div class="example-box-wrapper view-initiative-detaildiv">
+                                                <div class="col-sm-12 col-md-12 col-lg-12  border-top-graydashed pad10T" ng-repeat="val in statedoinginitiatives=( initiativesList | filter:'Doing')">
+                                                    <div class="col-sm-12 col-md-12  col-lg-12 mrg15T mrg15B pad0A ">
+                                                        <h3 ng-click="gotoViewInitiative(val.initiative_id)" class="cursor-pointer pad0A text-capitalize" ng-bind-html="val.node_title"></h3>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-12 col-lg-6 pad0A">
+                                                        <div class="character-remaining clear input-description">
+                                                            <div class="clearfix mrg5T taginlinemob">
+                                                                <div class="col-sm-12 col-md-5 col-lg-5 inlinecol pad0A"><span class="left-label">Directives:</span></div>
+                                                                <div class="col-sm-12 col-md-7 col-lg-7 pad0A mrg5T  tag-span inlinecol">
+                                                                    <div ng-repeat="dir in val.directivesList" ng-click="gotoViewDirectivePage(dir.id)" class="cursor-pointer bs-label label-info ">
+                                                                        {{dir.name}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="mrg15T clearfix mrg5 taginlinemobT">
+                                                                <div class="col-sm-12 col-md-5 col-lg-5 inlinecol pad0A"><span class="left-label">Product Manager:</span></div>
+                                                                <div class="col-sm-12 col-md-7 col-lg-7 pad0A mrg5T tag-span inlinecol">
+                                                                    <div ng-repeat="user in val.productmanagersList" ng-click="gotoUserProfile(user.name)" class="cursor-pointer bs-label label-info ">
+                                                                        {{user.name}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-12 col-lg-6 pad0A clearfix">
+                                                        <div class="col-sm-5 col-xs-6 remainingdays">
+                                                            <div class="character-remaining clear input-description">
+                                                                <i class="fa fa-check inicheked" aria-hidden="true" ng-if="val.dev_complete == '1'"></i> {{val.devDays}} DEV
+                                                                <span ng-if="val.devDays>1">days</span>
+                                                                <span ng-if="val.devDays<=1">day</span>
+                                                            </div>
+                                                            <div class="character-remaining clear input-description">
+                                                                <i class="fa fa-check inicheked" aria-hidden="true" ng-if="val.ux_complete == '1'"></i> {{val.uxDays}} UX
+                                                                <span ng-if="val.uxDays>1">days</span>
+                                                                <span ng-if="val.uxDays<=1">day</span>
+                                                            </div>
+                                                            <div class="character-remaining clear input-description">
+                                                                <i class="fa fa-check inicheked" aria-hidden="true" ng-if="val.ui_complete == '1'"></i> {{val.uiDays}} UI
+                                                                <span ng-if="val.uiDays>1">days</span>
+                                                                <span ng-if="val.uiDays<=1">day</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-7 col-xs-6">
+                                                            <div class="character-remaining clear input-description">
+                                                                <div class="plandate"><span>Target live date: </span>{{ val.live_date | date : "dd/MM/y"}}</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-12 col-lg-12" ng-show="!statedoinginitiatives.length&&!pageloader">
+                                                    <h4 class="text-center">No Initiatives have been yet moved to 'In Progress' for {{month_stringname}}</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-12 pad15T mrg15T mrg15B" ng-show="!statetodoinitiatives.length&&!pageloader">
+                                    <h3 class="text-center" ng-hide="!statedoneinitiatives.length&&!statedoinginitiatives.length&&!statetodoinitiatives.length">
+                                        No initiatives in 'To Do' for {{month_stringname}} yet. Get Started by creating an initiative for one of the existing directives below</h3>
+                                    <h3 class="text-center" ng-show="!statedoneinitiatives.length&&!statedoinginitiatives.length&&!statetodoinitiatives.length">
+                                        No initiatives have been created for {{month_stringname}} yet. Get Started by creating an initiative for one of the existing directives below</h3>
+                                    <div class="panel mrg15T">
+                                        <div class="panel-body pad-0 ">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 view-initiative-checkboxpaneldiv">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 pad10A  text-capitalize border-bottom-graydashed" ng-repeat="directive in directivesList | filter :directivesearch | orderBy: 'title'">
+                                                    <h4 ng-click="gotoCreateInitiative(directive)" class="cursor-pointer">{{directive.title}}</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-12 col-lg-12 text-center mrg15T">
+                                        <h3>OR</h3>
+                                    </div>
+                                    <div class="col-sm-12 col-md-12 col-lg-12 text-center mrg15T">
+                                        <div class="col-sm-hidden col-md-4 col-lg4"></div>
+                                        <div class="col-sm-hidden col-md-4 col-lg4">
+                                            <button type="button" class="btn btn-primary btn-lg btn-block" ng-click="gotoCreateDirective()">
+                        				<span style="font-weight:700">+</span> New Directive
+                        				</button>
+                                        </div>
+                                        <div class="col-sm-hidden col-md-4 col-lg4"></div>
+                                    </div>
+                                </div>
+                                <div class="panel mrg10T" ng-hide="!statetodoinitiatives.length">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">To Do</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseThree" class="panel-collapse collapse in">
+                                        <div class="panel-body pad0A">
+                                            <div class="example-box-wrapper view-initiative-detaildiv">
+                                                <div class="col-sm-12 col-md-12 col-lg-12  border-top-graydashed pad10T " ng-repeat="val in statetodoinitiatives=( initiativesList | filter: 'To do') ">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 mrg15T mrg15B pad0A ">
+                                                        <h3 ng-click="gotoViewInitiative(val.initiative_id) " class="cursor-pointer pad0A text-capitalize" ng-bind-html="val.node_title "></h3>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-12 col-lg-6 pad0A">
+                                                        <div class=" character-remaining clear input-description ">
+                                                            <div class="clearfix mrg5T taginlinemob ">
+                                                                <div class="col-sm-12 col-md-5 col-lg-5 inlinecol pad0A"><span class="left-label ">Directives:</span></div>
+                                                                <div class="col-sm-12 col-md-7 col-lg-7  pad0A mrg5T tag-span inlinecol ">
+                                                                    <div ng-repeat="dir in val.directivesList " ng-click="gotoViewDirectivePage(dir.id) " class="cursor-pointer bs-label label-info ">
+                                                                        {{dir.name}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="mrg15T clearfix mrg5 taginlinemobT ">
+                                                                <div class="col-sm-12 col-md-5 col-lg-5 inlinecol pad0A"><span class="left-label ">Product Manager:</span></div>
+                                                                <div class="col-sm-12 col-md-7 col-lg-7 pad0A mrg5T tag-span inlinecol ">
+                                                                    <div ng-repeat="user in val.productmanagersList " ng-click="gotoUserProfile(user.name) " class="cursor-pointer bs-label label-info ">
+                                                                        {{user.name}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-12 col-lg-6 pad0A clearfix">
+                                                        <div class="col-sm-5 col-xs-6 ">
+                                                            <div class="character-remaining clear remainingdays input-description ">
+                                                                <i class="fa fa-check inicheked" aria-hidden="true" ng-if="val.dev_complete == '1'"></i> {{val.devDays}} DEV
+                                                                <span ng-if="val.devDays>1">days</span>
+                                                                <span ng-if="val.devDays<=1">day</span>
+                                                            </div>
+                                                            <div class="character-remaining clear input-description">
+                                                                <i class="fa fa-check inicheked" aria-hidden="true" ng-if="val.ux_complete == '1'"></i> {{val.uxDays}} UX
+                                                                <span ng-if="val.uxDays>1">days</span>
+                                                                <span ng-if="val.uxDays<=1">day</span>
+                                                            </div>
+                                                            <div class="character-remaining clear input-description">
+                                                                <i class="fa fa-check inicheked" aria-hidden="true" ng-if="val.ui_complete == '1'"></i> {{val.uiDays}} UI
+                                                                <span ng-if="val.uiDays>1">days</span>
+                                                                <span ng-if="val.uiDays<=1">day</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-7 col-xs-6">
+                                                            <div class="character-remaining clear input-description">
+                                                                <div class="plandate"><span>Target live date: </span>{{ val.live_date | date : "dd/MM/y"}}</div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>

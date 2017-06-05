@@ -1,0 +1,356 @@
+/* Default color schemes */
+
+@import url(https://fonts.googleapis.com/css?family=Raleway:300);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+/* General */
+
+body {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: #3e4855;
+    background-color: #fff;
+    line-height: 1.42857143;
+    overflow-x: hidden;
+}
+
+#page-wrapper {
+    background: #fff;
+}
+
+
+/* Fonts weight */
+
+.tabs-nav li a,
+.main-header .header-nav>li>a,
+.hero-heading,
+.hero-text,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.main-header .header-nav>li>a,
+.hero-heading,
+.hero-text {
+    font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+}
+
+
+/* Top bar menu */
+
+.bg-topbar {
+    background: #fff;
+    border-bottom-color: #eee;
+}
+
+
+/* Main header */
+
+.bg-header {
+    background: #fff;
+}
+
+.sticky-active .main-header {
+    box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+
+/* Header subnav menu */
+
+.main-header .header-nav>li>ul {
+    background: #253035;
+}
+
+.main-header .header-nav>li>ul li a:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #dce4e8;
+}
+
+
+/* Inverse font color */
+
+.hero-box.font-inverse,
+.top-bar.font-inverse .float-left>a,
+.top-bar.font-inverse .user-profile,
+.main-header.font-inverse .header-logo,
+.main-header.font-inverse .header-nav>li>a,
+.main-header.font-inverse .right-header-btn .search-btn a {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.top-bar.font-inverse .user-profile:hover,
+.top-bar.font-inverse .float-left>a:hover,
+.main-header.font-inverse .right-header-btn .search-btn a:hover,
+.main-header.font-inverse .header-nav>li>a:hover {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.top-bar.font-inverse .user-info span,
+.thumb-heading.font-inverse {
+    color: #000;
+}
+
+.main-header.transparent {
+    margin-bottom: -74px;
+}
+
+
+/* Responsive */
+
+@media only screen and (max-width: 56.25em) {
+    .main-header .header-nav>li>ul li a:hover {
+        color: #1c82e1;
+    }
+    .main-header .header-nav .header {
+        color: #fff;
+        background: #00bca4;
+    }
+    .main-header .header-nav {
+        border-color: #dfe8f1;
+    }
+    .main-header .header-nav>li>ul {
+        background: rgba(37, 48, 53, 0.03);
+    }
+    .main-header .header-nav>li>ul li a:hover {
+        background: #fff;
+    }
+}
+
+
+/* ============= Lov Patsariya sTyle=============*/
+
+.main-container {
+    padding-left: 260px;
+    position: relative;
+}
+
+.left-sidebar {
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 230px;
+}
+
+.left-sidebar .panel-title a {
+    color: #868984;
+    font-size: 14px;
+    outline: none;
+    text-decoration: none;
+}
+
+.view-initiative-detaildiv h3 {
+    color: #3e4855;
+    font-size: 20px;
+    margin: 0;
+}
+
+.left-label {
+    color: #3e4855;
+    display: inline-block;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.tag-span>div {
+    display: inline-block;
+    margin: 0 10px 10px 0;
+}
+
+.remainingdays,
+.character-remaining,
+.plandate {
+    color: #868984;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.plandate span {
+    width: 100%;
+    display: inline-block;
+}
+
+.panel-heading .accordion-toggle:after {
+    content: "\f106";
+    float: right;
+    color: grey;
+    font-family: FontAwesome;
+    font-size: 14px;
+}
+
+.panel-heading .accordion-toggle.collapsed:after {
+    content: "\f107";
+}
+
+.panel-heading {
+    padding: 0;
+}
+
+.panel-heading .panel-title a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+}
+
+h2.mrg0A {
+    margin: 0 0 15px;
+}
+
+.initive-btn {
+    margin: 0 0 15px;
+    text-align: center;
+}
+
+@media(max-width:767px) {
+    .hero-box.hero-box-smaller {
+        background-image: none;
+        padding: 0;
+    }
+    .hero-overlay.bg-black {
+        display: none;
+    }
+    .hero-heading {
+        display: none;
+    }
+    h1.hero-heading {
+        color: #3e4855;
+        font-size: 18px;
+        text-align: center;
+    }
+    .for-large-device {
+        display: none;
+    }
+    .main-container {
+        padding-left: 0px;
+        position: relative;
+    }
+    .left-sidebar {
+        position: static;
+        width: 100%;
+    }
+    .view-initiative-detaildiv h3 {
+        font-size: 16px;
+    }
+    .tag-span {
+        margin: 0;
+        display: block
+    }
+    /*------------View Initiatives page style------------------*/
+    .left-sidebar .btn.btn-primary.btn-lg.btn-block {
+        display: inline-block;
+        font-size: 14px;
+        line-height: 34px;
+        margin-bottom: 15px;
+        padding: 6px 12px;
+        width: auto;
+    }
+    .left-sidebar .panel-group,
+    .left-sidebar .panel {
+        border: none;
+        text-align: center;
+    }
+    .mrg0A {
+        font-size: 18px;
+    }
+    .btn-inlinemob {
+        text-align: right;
+    }
+    .btn-inlinemob button.btn-block {
+        display: inline-block;
+        height: 34px;
+        line-height: initial;
+        margin: 0 0 0 10px!important;
+        max-width: none;
+        padding: 6px 12px;
+        width: auto;
+    }
+    div.image-preview-bg-overflow {
+        max-height: none;
+        min-height: 110px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-bottom: 10px;
+        white-space: nowrap;
+    }
+    div.mobinlineblocks {
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        white-space: nowrap;
+        width: 166px;
+    }
+    .mobinlineblocks a {
+        display: block;
+        margin-bottom: 5px;
+    }
+    .mobinlineblocks a img {
+        width: 100%;
+    }
+    .mobinlineblocks div {
+        margin-bottom: 0;
+    }
+    .mobinlineblocks div.imagename {
+        margin-bottom: 5px;
+    }
+    .form-horizontal .form-group.taginlinemob {
+        padding: 10px;
+    }
+    .inlinecol {
+        display: inline-block;
+        margin: 0!important;
+        padding: 0 5px 12px;
+    }
+    .inlinecol div {
+        margin: 0 5px 0 0 !important;
+    }
+    /* -------------- View-Directives Page Style-------------*/
+    h2.cursor-pointer {
+        font-size: 18px;
+        line-height: 24px;
+        margin-bottom: 10px;
+    }
+    p.ng-binding {
+        font-size: 13px;
+    }
+    .left-label {
+        margin-bottom: 5px;
+    }
+}
+
+@media(min-width:768px) {
+    .for-mobile-device {
+        display: none;
+    }
+}
+
+@media(min-width:768px) and (max-width:1023px) {
+    .btn-inlinemob {
+        text-align: right;
+    }
+    .btn-inlinemob button.btn-block {
+        display: inline-block;
+        height: 34px;
+        line-height: initial;
+        margin: 0 0 0 10px!important;
+        max-width: none;
+        padding: 6px 12px;
+        width: auto;
+    }
+    .mobinlineblocks {
+        margin-bottom: 15px;
+    }
+}
+
+#page-content {
+    background-color: #fbfbfb;
+}
+
+.grey {
+    background-color: #fbfbfb;
+}
+
+.inicheked {
+    margin-left: -15px;
+}

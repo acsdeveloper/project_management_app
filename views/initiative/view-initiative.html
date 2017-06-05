@@ -1,0 +1,817 @@
+<div ng-include="'./views/user/user-menu.html'"></div>
+<div class="col-lg-12 col-md-12 col-md-12 col-md-12 pad0A grey" ng-init="viewInitiativeInit()" ng-controller="viewInitiativeController">
+    <title ng-bind="pageTitle"></title>
+    <div ng-show="pageloader">
+        <div class="page-loader-bg">
+            <div class="content">
+                Loading...
+            </div>
+        </div>
+    </div>
+    <div id="page-content" class="col-md-12 col-lg-10 center-margin frontend-components mrg25T">
+        <!--mobile html start-->
+        <div class="row hidden-md hidden-lg">
+            <div class="col-sm-12 mrg20B clearfix btn-inlinemob">
+                <button type="submit" class="btn btn-block btn-primary" ng-click="gotoEditInitiative(initiativeData.nid)">Edit</button>
+                <!--ng-click="deleteInitiative(initiativeData.nid)"-->
+                <button type="submit" class="btn btn-block delete btn-primary" ng-click="deleteInitiative()">Delete</button>
+            </div>
+            <div class="col-sm-12 ">
+                <h2 class="mrg20B" ng-bind-html="initiativeData.title"></h2>
+                <!-- mobile specific - status - scheduled for - live date start-->
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Status</th>
+
+                                <th>Scheduled for</th>
+
+                                <th>Go live date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{initiativeData.state}}</td>
+
+                                <td>{{shedulemonth[0].name}} {{sheduleyear}}</td>
+
+                                <td>{{livedate_day}} {{livedate_month[0].name}} {{livedate_year}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- mobile specific - status - scheduled for - live date end-->
+            </div>
+
+            <!--paul inputting collapse start-->
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="">
+                        <div class="">
+                            <div class="example-box-wrapper">
+                                <!--accordion start-->
+
+                                <div class="panel-group" id="accordion">
+                                    <div class="panel">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                                    Current Situation
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseOne" class="panel-collapse collapse in">
+                                            <div class="panel-body">
+                                                <div class="col-md-9 col-sm-12  pad0A">
+                                                    <div class="view-initiativessituationdiv ckeditor">
+                                                        <div ng-bind-html="initiativeData.current_situation"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+
+                                                    <div class="col-sm-12 pad0A">
+                                                        <div class="col-sm-12 pad0L pad15T" ng-class="currentfiles.length>0?'image-preview-bg-overflow':''">
+                                                            <div class="col-sm-12  mobinlineblocks" ng-repeat="image in currentfiles ">
+                                                                <div class="col-sm-4">
+                                                                    <!--file-->
+                                                                    <a ng-if="image.type==='image'" href="{{image.fileurl}} " data-lightbox="example-11 ">
+                                                                        <img class="example-image1 " ng-src="{{image.imageurl}} " width="100px " height="100px " alt="image-1" />
+                                                                    </a>
+
+                                                                    <!--imager-->
+                                                                    <a class="example-imag-link1 " href="{{image.fileurl}} " ng-if="image.type!=='image' " target="_blank ">
+                                                                        <div class="col-sm-12 image-preview-bg-doc">{{image.displaytext}}</div>
+                                                                    </a>
+                                                                </div>
+                                                                <div class="col-sm-8 clearfix">
+                                                                    <div class="col-sm-12">
+                                                                        <div class="imagename">{{image.filename}}</div>
+                                                                    </div>
+                                                                    <div class="col-sm-12 row clearfix">
+                                                                        <div class="col-sm-6">
+                                                                            <a href="{{image.fileurl}}" download>
+                                                                                <i class="glyphicon glyphicon-download-alt font-size-12 "></i>
+                                                                                <span class="pad5L">download</span>
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class=" col-sm-6">
+                                                                            <a class="cursor-pointer" ng-click="imageDelete(image.id,'current')">
+                                                                                <i class="glyphicon glyphicon-remove font-size-12 "></i>
+                                                                                <span class="pad5L">delete</span></a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                                    Proposed situation
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseTwo" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <div class="col-md-9 col-sm-12  pad0A">
+                                                    <div class="view-initiativessituationdiv ckeditor">
+                                                        <div ng-bind-html="initiativeData.proposed_situation"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group ">
+                                                    <div class="col-sm-12 pad0A">
+                                                        <div class="col-sm-12 pad0L pad15T" ng-class="proposedfiles.length>0?'image-preview-bg-overflow':''">
+                                                            <div class="col-sm-12 mobinlineblocks" ng-repeat="image in proposedfiles ">
+                                                                <div class="col-sm-4">
+                                                                    <!--file-->
+                                                                    <a ng-if="image.type==='image'" href="{{image.fileurl}} " data-lightbox="example-11 ">
+                                                                        <img class="example-image1 " ng-src="{{image.imageurl}} " width="100px " height="100px " alt="image-1" />
+                                                                    </a>
+
+                                                                    <!--imager-->
+                                                                    <a class="example-imag-link1 " href="{{image.fileurl}} " ng-if="image.type!=='image' " target="_blank ">
+                                                                        <div class="col-sm-12 image-preview-bg-doc">{{image.displaytext}}</div>
+                                                                    </a>
+                                                                </div>
+                                                                <div class="col-sm-8  pad15T">
+                                                                    <div class="col-sm-12 pad5T">{{image.filename}}</div>
+                                                                    <div class="col-sm-12  pad5T">
+                                                                        <div class="row">
+                                                                            <div class="col-sm-6">
+                                                                                <a href="{{image.fileurl}}" download>
+                                                                                    <i class="glyphicon glyphicon-download-alt font-size-12 "></i>
+                                                                                    <span class="pad5L">download</span>
+                                                                                </a>
+                                                                            </div>
+                                                                            <div class=" col-sm-6">
+                                                                                <a class="cursor-pointer" ng-click="imageDelete(image.id,'proposed')">
+                                                                                    <i class="glyphicon glyphicon-remove font-size-12 "></i>
+                                                                                    <span class="pad5L">delete</span></a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                                    Links
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseThree" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <div class="form-group ">
+                                                    <div class="col-sm-9 pad7T">
+                                                        <div class="row ">
+                                                            <div class="col-md-12 " ng-repeat="link in links ">
+                                                                <h4 class="mrg15B "><a target="_blank " ng-href="{{link.url}} ">{{link.title}}</a></h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--accordion end-->
+                                <!--assigned users start-->
+                                <div>
+                                    <div class="panel">
+                                        <div class="panel-body">
+                                            <div class="example-box-wrapper">
+                                                <form class="form-horizontal bordered-row">
+                                                    <!--Directives start-->
+                                                    <div class="form-group clearfix taginlinemob">
+                                                        <div class="col-sm-3 inlinecol">
+                                                            <label class="control-label ">Directive(s) this initiative
+                                                                contributes too</label>
+                                                        </div>
+
+                                                        <div class="col-sm-9 inlinecol">
+                                                            <div class="row">
+                                                                <div ng-click="gotoViewDirectivePage(directive.id)" ng-repeat="directive in directives" class="cursor-pointer bs-label label-info mrg15L mrg5T col-sm-12 width-auto ">{{directive.name}}</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--Directives end-->
+
+                                                    <div class="form-group clearfix taginlinemob">
+                                                        <label class="col-sm-3 inlinecol control-label ">Product manager</label>
+
+                                                        <div class="col-sm-9 inlinecol">
+                                                            <div class="row ">
+                                                                <div ng-repeat="manager in product_manager " class="cursor-pointer bs-label label-info mrg15L mrg5T  col-sm-12 width-auto " ng-click="gotoUserProfile(manager.name)">
+                                                                    {{manager.name}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group clearfix taginlinemob">
+                                                        <label class="col-sm-3 inlinecol control-label ">Business owner</label>
+
+                                                        <div class="col-sm-9 inlinecol">
+                                                            <div class="row ">
+                                                                <div ng-repeat="owner in business_owner " class="cursor-pointer bs-label label-info mrg15L mrg5T col-sm-12 width-auto " ng-click="gotoUserProfile(owner.name)">
+                                                                    {{owner.name}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group clearfix taginlinemob">
+                                                        <label class="col-sm-3 inlinecol control-label ">Stakeholders</label>
+
+                                                        <div class="col-sm-9 inlinecol">
+                                                            <div class="row ">
+                                                                <div ng-repeat="holder in stakeholder " ng-click="gotoUserProfile(holder.name)" class="cursor-pointer bs-label label-info mrg15L mrg5T col-sm-12 width-auto ">
+                                                                    {{holder.name}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--assigned users end-->
+                                <!--resources allocated start-->
+                                <div class="table-responsive">
+                                    <table class="table table-hover ">
+                                        <thead>
+                                            <tr>
+                                                <th>Resource type</th>
+
+                                                <th class="text-center ">Quantity</th>
+
+                                                <th>Days</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr>
+                                                <td>Developer</td>
+
+                                                <td class="text-center ">{{initiativeData.number_of_devs}}</td>
+
+                                                <td>{{initiativeData.number_of_devs_days}}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>UX designer</td>
+
+                                                <td class="text-center ">{{initiativeData.number_of_ux}}</td>
+
+                                                <td>{{initiativeData.number_of_ux_days}}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>UI Designer</td>
+
+                                                <td class="text-center ">{{initiativeData.number_of_ui}}</td>
+
+                                                <td>{{initiativeData.number_of_ui_days}}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Data analyst</td>
+
+                                                <td class="text-center ">{{initiativeData.number_of_data_analysis}}</td>
+                                                <td>{{initiativeData.number_of_data_analysis_days}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!--resources allocated end-->
+                                <!--Comment Section Start-->
+                                <div class="hidden-md hidden-lg">
+                                    <div class="panel panel-z-index">
+                                        <div class="panel-body pad-0">
+                                            <h3 class="title-hero pad15A margin0A">Comments</h3>
+                                            <div class="content-box-wrapper ">
+                                                <div class="scrollable-content scrollable-slim scrollable-medium " id="scrollable-content">
+
+                                                    <ul class="chat-box" id="chat-box2">
+                                                        <li ng-class="login_user_id==comments.uid?'float-left':''" ng-repeat="comments in user_comments_new | orderBy: 'sort_time'">
+                                                            <div>
+                                                                <div class="chat-author ">
+                                                                    <div class="mrg10T" ng-if="comments.picture!=''" ng-bind-html="comments.picture"></div>
+                                                                    <img ng-if="comments.picture==''" src="./assets/image-resources/gravatar.jpg" />
+                                                                </div>
+                                                                <div class="popover popover_width no-shadow " ng-class="login_user_id==comments.uid?'right':'left'">
+                                                                    <div class="arrow "></div>
+                                                                    <div class="popover-content wordwrap-break">
+                                                                        <h3>
+                                                                            <a title="{{comments.name}}"> {{comments.name}}  </a>
+                                                                            <div class="float-right ">
+                                                                                <a class="btn glyph-icon icon-inbox font-gray tooltip-button " data-placement="bottom " title="This chat line was received in the mail. "></a>
+                                                                            </div>
+                                                                        </h3>
+                                                                        <div class="ckeditor" ng-bind-html="comments.comment"></div>
+
+                                                                        <div class="chat-time ">
+                                                                            <i class="glyph-icon icon-clock-o "></i> a {{comments.updated}}
+                                                                        </div>
+                                                                        <div ng-show="comments.reply_comments.length>0">
+
+                                                                            <div ng-repeat="reply in comments.reply_comments | orderBy: 'sort_time'" class="reply_section">
+                                                                                <h3>
+                                                                                    <a title="{{reply.name}}"> {{reply.name}}</a>
+                                                                                    <div class="float-right ">
+                                                                                        <a data-placement="bottom " class="btn glyph-icon icon-inbox font-gray tooltip-button " title="This chat line was received in the mail. ">
+                                                                                        </a>
+                                                                                    </div>
+                                                                                </h3>
+                                                                                <div class="ckeditor" ng-bind-html="reply.comment"></div>
+                                                                                <div class="chat-time ">
+                                                                                    <i class="glyph-icon icon-clock-o">
+                                                                                    </i> a {{reply.updated}}
+                                                                                </div>
+                                                                            </div>
+                                                                            <a ng-show="login_user_id==comments.uid" class="btn btn-sm btn-default font-bold text-transform-upr " title=" "><span class="button-content " ng-click="showreplyDetails = ! showreplyDetails">Reply</span></a>
+                                                                            <div ng-show="showreplyDetails " class="input-group pad10T ">
+                                                                                <input type="text " ng-model="reply_text" placeholder="Say something here... " class="form-control ">
+                                                                                <div class="input-group-btn ">
+                                                                                    <button ng-click="sendUserComments(comments.cid,reply_text,'reply') " type="button " class="btn btn-default " tabindex="-1 "><i class="glyph-icon icon-mail-reply "></i></button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!--replay section here-->
+                                                                        <div ng-show=" login_user_id!=comments.uid ">
+                                                                            <div class="divider "></div>
+                                                                            <a ng-show="login_user_id!=comments.uid" class="btn btn-sm btn-default font-bold text-transform-upr " title=" "><span class="button-content " ng-click="showDetails = ! showDetails">Reply</span></a>
+                                                                            <!--<a ng-show="showDetails " class="btn btn-sm btn-danger float-right tooltip-button " data-placement="left " title="Remove comment " ng-click="showDetails = ! showDetails"><i class=" glyph-icon icon-remove "></i></a>-->
+                                                                            <div ng-show="showDetails " class="input-group pad10T ">
+                                                                                <input type="text " ng-model="reply_text" placeholder="Say something here... " class="form-control ">
+                                                                                <div class="input-group-btn ">
+                                                                                    <button ng-click="sendUserComments(comments.cid,reply_text,'reply') " type="button " class="btn btn-default " tabindex="-1 "><i class="glyph-icon icon-mail-reply "></i></button>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!--replay end section here-->
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                        </li>
+                                                    </ul>
+
+                                                    </div>
+                                                    <div class="button-pane" id="comment_box">
+                                                        <textarea class="ckeditor_comment" cols="20" id="ckeditor_comment" name="ckeditor_comment" rows="8"></textarea>
+                                                    </div>
+                                                    <div class="button-pane pad10A ">
+                                                        <button type="submit" class="btn btn-block btn-primary" ng-click="sendUserComments(0,'comment_text','comment')">Submit
+                                                            <!--<img src="./assets/images/spinner/loader-dark.gif"  wis/>-->
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--comment Section End-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--mobile html end-->
+
+
+            <!--desktop html start-->
+
+            <div class="row hidden-sm hidden-xs">
+                <div class="col-md-12 mrg20B">
+                    <div class="col-md-1 ">
+                        <button type="submit" class="btn btn-block btn-primary" ng-click="gotoEditInitiative(initiativeData.nid)">Edit</button>
+                    </div>
+                    <div class="col-md-1">
+                        <!--ng-click="deleteInitiative(initiativeData.nid)"-->
+                        <button type="submit" class="btn btn-block delete btn-primary" ng-click="deleteInitiative()">Delete</button>
+                    </div>
+                </div>
+
+
+                <div class="col-md-8 col-sm-12 col-xs-12 hidden-xs">
+                    <div class="panel">
+                        <div class="panel-body">
+                            <div class="example-box-wrapper">
+                                <form class="form-horizontal bordered-row">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Title</label>
+
+                                        <div class="col-sm-9 ">
+                                            <h2 class="mrg0A" ng-bind-html="initiativeData.title"></h2>
+                                        </div>
+                                    </div>
+                                    <!--current situation start-->
+
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Current Situation</label>
+
+                                        <div class="col-md-9 col-sm-9 pad0A">
+                                            <div class="view-initiativessituationdiv ckeditor">
+                                                <div ng-bind-html="initiativeData.current_situation"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Current Situation  files</label>
+
+                                        <div class="col-sm-9 pad0A">
+                                            <div class="col-sm-12 pad0L pad15T" ng-class="currentfiles.length>0?'image-preview-bg-overflow':''">
+                                                <div class="col-sm-12 pad15B" ng-repeat="image in currentfiles ">
+                                                    <div class="col-sm-4">
+                                                        <!--file-->
+                                                        <a ng-if="image.type==='image'" href="{{image.fileurl}} " data-lightbox="example-11 ">
+                                                            <img class="example-image1 " ng-src="{{image.imageurl}} " width="100px " height="100px " alt="image-1" />
+                                                        </a>
+
+                                                        <!--imager-->
+                                                        <a class="example-imag-link1 " href="{{image.fileurl}} " ng-if="image.type!=='image' " target="_blank ">
+                                                            <div class="col-sm-12 image-preview-bg-doc">{{image.displaytext}}</div>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-sm-8  pad15T">
+                                                        <div class="col-sm-12 pad5T">{{image.filename}}</div>
+                                                        <div class="col-sm-12  pad5T">
+                                                            <div class="col-sm-6 pad0A">
+                                                                <a href="{{image.fileurl}}" download>
+                                                                    <i class="glyphicon glyphicon-download-alt font-size-12 "></i>
+                                                                    <span class="pad5L">download</span>
+                                                                </a>
+                                                            </div>
+                                                            <div class=" col-sm-6">
+                                                                <a class="cursor-pointer" ng-click="imageDelete(image.id,'current')">
+                                                                    <i class="glyphicon glyphicon-remove font-size-12 "></i>
+                                                                    <span class="pad5L">delete</span></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <!--current situation end-->
+                                    <!--proposed situation start-->
+
+                                    <div class="form-group ">
+                                        <label class="col-sm-3 control-label ">Proposed Situation</label>
+
+                                        <div class="col-md-9 col-sm-9 pad0A">
+
+                                            <div class="view-initiativessituationdiv ckeditor">
+                                                <div ng-bind-html="initiativeData.proposed_situation"></div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label class="col-sm-3 control-label ">Proposed Situation  files</label>
+                                        <div class="col-sm-9 pad0A">
+                                            <div class="col-sm-12 pad0L pad15T" ng-class="proposedfiles.length>0?'image-preview-bg-overflow':''">
+                                                <div class="col-sm-12 pad15B" ng-repeat="image in proposedfiles ">
+                                                    <div class="col-sm-4">
+                                                        <!--file-->
+                                                        <a ng-if="image.type==='image'" href="{{image.fileurl}} " data-lightbox="example-11 ">
+                                                            <img class="example-image1 " ng-src="{{image.imageurl}} " width="100px " height="100px " alt="image-1" />
+                                                        </a>
+
+                                                        <!--imager-->
+                                                        <a class="example-imag-link1 " href="{{image.fileurl}} " ng-if="image.type!=='image' " target="_blank ">
+                                                            <div class="col-sm-12 image-preview-bg-doc">{{image.displaytext}}</div>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-sm-8  pad15T">
+                                                        <div class="col-sm-12 pad5T">{{image.filename}}</div>
+                                                        <div class="col-sm-12  pad5T">
+                                                            <div class="col-sm-6 pad0A">
+                                                                <a href="{{image.fileurl}}" download>
+                                                                    <i class="glyphicon glyphicon-download-alt font-size-12 "></i>
+                                                                    <span class="pad5L">download</span>
+                                                                </a>
+                                                            </div>
+                                                            <div class=" col-sm-6">
+                                                                <a class="cursor-pointer" ng-click="imageDelete(image.id,'proposed')">
+                                                                    <i class="glyphicon glyphicon-remove font-size-12 "></i>
+                                                                    <span class="pad5L">delete</span></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--proposed situation end-->
+                                    <!--enter links start-->
+
+                                    <div class="form-group ">
+                                        <label class="col-sm-3 control-label ">Links</label>
+
+                                        <div class="col-sm-9 pad7T">
+                                            <div class="row ">
+                                                <div class="col-md-12 " ng-repeat="link in links ">
+                                                    <h4 class="mrg15B "><a target="_blank " ng-href="{{link.url}} ">{{link.title}}</a></h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--enter links end-->
+                                    <!--status start-->
+
+                                    <div class="form-group ">
+                                        <label class="col-sm-3 control-label ">Status</label>
+                                        <div class="col-sm-9 pad7T">
+                                            {{initiativeData.state}}
+                                        </div>
+                                    </div>
+                                    <!--status end-->
+                                    <!--months start-->
+
+                                    <div class="form-group ">
+                                        <label class="col-sm-3 control-label ">Scheduled for</label>
+
+                                        <div class="col-sm-9 pad7T">
+                                            <div class="row ">
+                                                <div class="col-md-6 ">
+                                                    {{shedulemonth[0].name}} {{sheduleyear}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--months end-->
+                                    <!--date picker start-->
+
+                                    <div class="form-group ">
+                                        <label class="col-sm-3 control-label ">Go live date</label>
+                                        <!--  <a test-directive class='pop-over-link' style='position: fixed; top: 100px; left: 100px;'>Show pop-over test</a>-->
+                                        <!--<div class='pop-over-content' style='display:none'><input type='text' ng-model='$parent.text'/><button class='btn btn-primary' ng-click='testFunction()'>Ok</button></div>-->
+                                        <div class="col-sm-9 pad7T">
+                                            {{livedate_day}} {{livedate_month[0].name}} {{livedate_year}}
+                                            <!--{{monthInterger.length}}-->
+                                            <!--<a test-directive  data-toggle="popover " data-container="body " data-placement="top " type="button " data-html="true " class='pop-over-link' > 17/02/2014</a>-->
+                                        </div>
+                                        <!--<div class="pop-over-content hide ">-->
+                                        <!-- <div class="popover-title-text ">Select Live Date</div>-->
+                                        <!-- <div id="popover-content ">-->
+                                        <!--  <form class="form-inline " role="form ">-->
+                                        <!--    <div class="form-group "> -->
+                                        <!--      <select ng-model="$parent.liveDateMonth " class="input-sm form-control edit-livedate-select " >-->
+                                        <!--          <option ng-repeat="integer in monthInterger track by $index ">{{integer}}</option>-->
+                                        <!--      </select>-->
+                                        <!--      <select ng-model="$parent.liveMonth " class="input-sm form-control edit-livedate-select " >-->
+                                        <!--          <option ng-repeat="month in fullMonth ">{{month.full_month}}</option>-->
+                                        <!--      </select>-->
+                                        <!--      <select ng-model="$parent.liveYear " class="input-sm form-control edit-livedate-select " >-->
+                                        <!--          <option ng-repeat="year in liveYearOption track by $index ">{{year}}</option>-->
+                                        <!--      </select>-->
+                                        <!--     <button  type="submit " ng-click="livedatePopoverUpdate() " class="btn btn-sm btn-primary editable-submit "><i class="glyph-icon icon-check "></i></button>-->
+                                        <!--      <button type="button " ng-click="livedatePopoverClose() " id="btnclose " class="btn btn-sm btn-default editable-cancel "><i class="glyph-icon icon-times " ></i></button>-->
+                                        <!--    </div>-->
+                                        <!--  </form>-->
+                                        <!--</div>-->
+                                        <!--</div>-->
+                                    </div>
+                                    <!--date picker end-->
+                                    <!--Directives start-->
+
+                                    <div class="form-group clearfix">
+                                        <div class="col-sm-3 ">
+                                            <label class="control-label ">Directive(s) this initiative contributes too</label>
+                                        </div>
+
+                                        <div class="col-sm-9 ">
+                                            <div class="row">
+                                                <div ng-click="gotoViewInitiatives()" ng-repeat="directive in directives" class="cursor-pointer bs-label label-info mrg15L mrg5T col-sm-12 width-auto ">{{directive.name}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Directives end-->
+
+                                    <div class="form-group clearfix">
+                                        <label class="col-sm-3 control-label ">Product manager</label>
+
+                                        <div class="col-sm-9 ">
+                                            <div class="row ">
+                                                <div ng-repeat="manager in product_manager " class="cursor-pointer bs-label label-info mrg15L mrg5T  col-sm-12 width-auto " ng-click="gotoUserProfile(manager.name)">
+                                                    {{manager.name}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group clearfix">
+                                        <label class="col-sm-3 control-label ">Business owner</label>
+
+                                        <div class="col-sm-9 ">
+                                            <div class="row ">
+                                                <div ng-repeat="owner in business_owner " class="cursor-pointer bs-label label-info mrg15L mrg5T col-sm-12 width-auto " ng-click="gotoUserProfile(owner.name)">
+                                                    {{owner.name}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group clearfix">
+                                        <label class="col-sm-3 control-label ">Stakeholders</label>
+
+                                        <div class="col-sm-9 ">
+                                            <div class="row ">
+                                                <div ng-repeat="holder in stakeholder " ng-click="gotoUserProfile(holder.name)" class="cursor-pointer bs-label label-info mrg15L mrg5T col-sm-12 width-auto ">
+                                                    {{holder.name}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="pad20T clearfix">
+                                        <label class="col-sm-3 control-label ">Allocated resources</label>
+
+                                        <div class="col-sm-9 ">
+                                            <div class="table-responsive">
+                                                <table class="table table-hover ">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Resource type</th>
+
+                                                            <th class="text-center ">Quantity</th>
+
+                                                            <th>Days</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Developer</td>
+
+                                                            <td class="text-center ">{{initiativeData.number_of_devs}}</td>
+
+                                                            <td>{{initiativeData.number_of_devs_days}}</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>UX designer</td>
+
+                                                            <td class="text-center ">{{initiativeData.number_of_ux}}</td>
+
+                                                            <td>{{initiativeData.number_of_ux_days}}</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>UI Designer</td>
+
+                                                            <td class="text-center ">{{initiativeData.number_of_ui}}</td>
+
+                                                            <td>{{initiativeData.number_of_ui_days}}</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>Data analyst</td>
+
+                                                            <td class="text-center ">{{initiativeData.number_of_data_analysis}}</td>
+                                                            <td>{{initiativeData.number_of_data_analysis_days}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12 col-xs-12">
+                    <div class="panel panel-z-index">
+                        <div class="panel-body pad-0">
+                            <h3 class="title-hero pad15A margin0A">Comments</h3>
+                            <div class="content-box-wrapper ">
+                                <div class="scrollable-content scrollable-slim scrollable-medium " id="scrollable-content">
+
+                                    <ul class="chat-box" id="chat-box2">
+                                        <li ng-class="login_user_id==comments.uid?'float-left':''" ng-repeat="comments in user_comments_new | orderBy: 'sort_time'">
+                                            <div>
+                                                <div class="chat-author ">
+                                                    <div class="mrg10T" ng-if="comments.picture!=''" ng-bind-html="comments.picture"></div>
+                                                    <img ng-if="comments.picture==''" src="./assets/image-resources/gravatar.jpg" />
+                                                </div>
+                                                <div class="popover popover_width no-shadow " ng-class="login_user_id==comments.uid?'right':'left'">
+                                                    <div class="arrow "></div>
+                                                    <div class="popover-content wordwrap-break">
+                                                        <h3>
+                                                            <a title="{{comments.name}}"> {{comments.name}}  </a>
+                                                            <div class="float-right ">
+                                                                <a class="btn glyph-icon icon-inbox font-gray tooltip-button " data-placement="bottom " title="This chat line was received in the mail. "></a>
+                                                            </div>
+                                                        </h3>
+                                                        <div class="ckeditor" ng-bind-html="comments.comment"></div>
+
+                                                        <div class="chat-time ">
+                                                            <i class="glyph-icon icon-clock-o "></i> a {{comments.updated}}
+                                                        </div>
+                                                        <div ng-show="comments.reply_comments.length>0">
+
+                                                            <div ng-repeat="reply in comments.reply_comments | orderBy: 'sort_time'" class="reply_section">
+                                                                <h3>
+                                                                    <a title="{{reply.name}}"> {{reply.name}}</a>
+                                                                    <div class="float-right ">
+                                                                        <a data-placement="bottom " class="btn glyph-icon icon-inbox font-gray tooltip-button " title="This chat line was received in the mail. ">
+                                                                        </a>
+                                                                    </div>
+                                                                </h3>
+                                                                <div class="ckeditor" ng-bind-html="reply.comment"></div>
+                                                                <div class="chat-time ">
+                                                                    <i class="glyph-icon icon-clock-o">
+                                                                                </i> a {{reply.updated}}
+                                                                </div>
+                                                            </div>
+                                                            <a ng-show="login_user_id==comments.uid" class="btn btn-sm btn-default font-bold text-transform-upr " title=" "><span class="button-content " ng-click="showreplyDetails = ! showreplyDetails">Reply</span></a>
+                                                            <div ng-show="showreplyDetails " class="input-group pad10T ">
+                                                                <input type="text " ng-model="reply_text" placeholder="Say something here... " class="form-control ">
+                                                                <div class="input-group-btn ">
+                                                                    <button ng-click="sendUserComments(comments.cid,reply_text,'reply') " type="button " class="btn btn-default " tabindex="-1 "><i class="glyph-icon icon-mail-reply "></i></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!--replay section here-->
+                                                        <div ng-show=" login_user_id!=comments.uid ">
+                                                            <div class="divider "></div>
+                                                            <a ng-show="login_user_id!=comments.uid" class="btn btn-sm btn-default font-bold text-transform-upr " title=" "><span class="button-content " ng-click="showDetails = ! showDetails">Reply</span></a>
+                                                            <!--<a ng-show="showDetails " class="btn btn-sm btn-danger float-right tooltip-button " data-placement="left " title="Remove comment " ng-click="showDetails = ! showDetails"><i class=" glyph-icon icon-remove "></i></a>-->
+                                                            <div ng-show="showDetails " class="input-group pad10T ">
+                                                                <input type="text " ng-model="reply_text" placeholder="Say something here... " class="form-control ">
+                                                                <div class="input-group-btn ">
+                                                                    <button ng-click="sendUserComments(comments.cid,reply_text,'reply') " type="button " class="btn btn-default " tabindex="-1 "><i class="glyph-icon icon-mail-reply "></i></button>
+                                                                </div>
+                                                            </div>
+                                                            <!--replay end section here-->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </li>
+                                    </ul>
+
+                                    </div>
+                                    <div class="button-pane" id="comment_box">
+                                        <textarea class="ckeditor_comment" cols="20" id="ckeditor_comment" name="ckeditor_comment" rows="8"></textarea>
+                                    </div>
+                                    <div class="button-pane pad10A ">
+                                        <button type="submit" class="btn btn-block btn-primary" ng-click="sendUserComments(0,'comment_text','comment')">Submit
+                                                        <!--<img src="./assets/images/spinner/loader-dark.gif"  wis/>-->
+                                                    </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script type="text/javascript " src="./assets/widgets/collapse/collapse.js "></script>
+    <script type="text/javascript " src="./assets/widgets/accordion-ui/accordion.js "></script>
+    <script type="text/javascript ">
+        /* jQuery UI Accordion */
+
+        $(function() {
+            "use strict ";
+            $(".accordion ").accordion({
+                heightStyle: "content "
+            });
+        });
+
+        $(function() {
+            "use strict ";
+            $("#accordion-hover ")
+                .accordion({
+                    event: 'mouseover',
+                    heightStyle: 'auto'
+                });
+        });
+
+
+        $(".panel-title a").click(function(e) {
+            e.preventDefault();
+        });
+    </script>

@@ -1,0 +1,442 @@
+.userLogin_page {
+    height: 100vh !important;
+    background-image: url("../image-resources/blurred-bg/blurred-bg-3.jpg");
+    background-size: cover;
+    padding-top: 50px;
+}
+
+.page-loader-bg {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10000;
+    position: fixed;
+    height: 100%;
+    opacity: 0.4;
+    background-color: #000;
+    cursor: progress;
+}
+
+.page-loader-bg .content {
+    top: 50%;
+    left: 50%;
+    width: 140px;
+    color: #fff;
+    position: relative;
+    font-weight: bold;
+    font-size: 24px;
+    margin-left: -70px;
+    border-radius: 10px;
+    text-align: center;
+    z-index: 10001;
+}
+
+.page-loader {
+    z-index: 5000;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: none;
+}
+
+.popover_width {
+    min-width: 98% !important;
+}
+
+.panel-z-index {
+    position: relative;
+    z-index: 0;
+}
+
+.users_menus {
+    /*position: relative;*/
+    z-index: 1999 !important;
+}
+
+.mytext {
+    /*border: 1px solid red;
+    */
+}
+
+
+/*view initiative page start here*/
+
+.view-initiative-checkboxdiv {
+    text-align: left;
+    vertical-align: middle;
+    width: 100% !important;
+    text-overflow: ellipsis;
+    text-transform: capitalize;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.view-initiative-checkboxpaneldiv {
+    padding: 5px;
+    min-height: 150px;
+    max-height: 184px;
+    overflow: auto;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+.view-initiative-detaildiv {
+    /*min-height: 155px;*/
+    max-height: 480px;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.view-initiativessituationdiv {
+    min-height: 35px;
+    max-height: 250px;
+    overflow: auto;
+}
+
+.view-initiative-searchtext {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: white;
+    background-size: 14px;
+    background-image: url('../images/search-icon.png');
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    padding: 5px 10px 5px 30px;
+}
+
+.edit-livedate-select {
+    display: inline-block;
+    width: auto;
+    margin: 10px;
+}
+
+.reply_section {
+    padding-bottom: 10px;
+    border-top: 1px solid #dfe8f1;
+    padding-top: 10px;
+}
+
+.fileContainer [type=file] {
+    cursor: pointer;
+    display: block;
+    filter: alpha(opacity=0);
+    min-height: 100%;
+    min-width: 100%;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    top: 0;
+}
+
+
+/* Example stylistic flourishes */
+
+.fileContainer {
+    background: #ccc;
+    float: left;
+    margin-top: 5px;
+    padding: 4px;
+}
+
+
+/*view initiative page end*/
+
+
+/*************** dropzone style here *************/
+
+.demo-droppable {
+    background: #08c;
+    color: #fff;
+    padding: 100px 0;
+    text-align: center;
+    width: 100%;
+}
+
+.demo-droppable.dragover {
+    background: #00CC71;
+}
+
+.demo-droppable-proposed {
+    background: #08c;
+    color: #fff;
+    padding: 100px 0;
+    text-align: center;
+    width: 100%;
+}
+
+.demo-droppable-proposed.dragover {
+    background: #00CC71;
+}
+
+
+/*************** dropzone style here *************/
+
+
+/* commen */
+
+.wordwrap-break {
+    word-wrap: break-word;
+}
+
+.view-initiativessituationdiv h1,
+h2,
+h3 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.border-bottom-graydashed {
+    border-bottom: 1px dashed #ccc;
+}
+
+.border-top-graydashed {
+    border-top: 1px dashed #ccc;
+}
+
+.border-bottom-graysolid {
+    border-bottom: 1px solid #ccc;
+}
+
+.text-capitalize {
+    text-transform: capitalize;
+}
+
+.display-none {
+    display: none;
+}
+
+.cursor-pointer {
+    cursor: pointer
+}
+
+.width-auto {
+    width: auto !important;
+}
+
+.pad-0 {
+    padding: 0px
+}
+
+.mrg0A {
+    margins: 0px
+}
+
+.pad7T {
+    padding-top: 7px;
+}
+
+.font-size-12 {
+    font-size: 12px
+}
+
+.width-100 {
+    width: 100%
+}
+
+.error-msg {
+    color: #F06767
+}
+
+.bggreen-label {
+    border-color: #AAFFDA;
+    background: #AAFFDA;
+    color: #000;
+}
+
+.error-style {
+    color: #F06767;
+    display: none;
+}
+
+.status-style {
+    margin-right: 10px;
+    margin-top: 9px;
+    padding-left: 5px;
+}
+
+.radioinput {
+    margin-right: 5px;
+}
+
+a:focus,
+a:hover {
+    text-decoration: none;
+    text-decoration-line: none;
+}
+
+.image-delete {
+    width: 15px;
+    height: 15px;
+    margin-top: -90px;
+    margin-left: -10px;
+    cursor: pointer;
+}
+
+.overflow-image {
+    overflow-x: auto;
+    white-space: nowrap;
+    height: 152px;
+}
+
+.image-preview-bg-overflow {
+    background-color: #EDEFF0;
+    min-height: 110px;
+    max-height: 205px;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.image-preview-bg-doc {
+    width: 100px;
+    height: 85px;
+    padding: 32px;
+    background: #ccc;
+    border-radius: 5px;
+}
+
+.radio_shown_as_check {
+    -webkit-appearance: checkbox;
+    /* Chrome, Safari, Opera */
+    -moz-appearance: checkbox;
+    /* Firefox */
+    -ms-appearance: checkbox;
+    /* not currently supported */
+    appearance: checkbox;
+}
+
+
+/*************style for checkbox
+.checkbox-style:not(:checked),
+.checkbox-style:checked {
+    position: absolute;
+    left: -9999px;
+}
+
+.checkbox-style:not(:checked)+label,
+.checkbox-style:checked+label {
+    position: relative;
+    padding-left: 1.95em;
+    cursor: pointer;
+}
+
+
+/* checkbox aspect */
+
+.checkbox-style:not(:checked)+label:before,
+.checkbox-style:checked+label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1.25em;
+    height: 1.25em;
+    border: 2px solid #ccc;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, .1);
+}
+
+
+/* checked mark aspect */
+
+.checkbox-style:not(:checked)+label:after,
+.checkbox-style:checked+label:after {
+    content: '\2713';
+    outline: none;
+    position: absolute;
+    top: .1em;
+    left: .3em;
+    font-size: 1.3em;
+    line-height: 0.8;
+    color: #09ad7e;
+    transition: all .2s;
+}
+
+
+/* checked mark aspect changes */
+
+.checkbox-style:not(:checked)+label:after {
+    opacity: 0;
+    transform: scale(0);
+}
+
+.checkbox-style:checked+label:after {
+    opacity: 1;
+    transform: scale(1);
+}
+
+
+/* disabled checkbox */
+
+.checkbox-style:disabled:not(:checked)+label:before,
+.checkbox-style:disabled:checked+label:before {
+    box-shadow: none;
+    border-color: #bbb;
+    background-color: #ddd;
+}
+
+.checkbox-style:disabled:checked+label:after {
+    color: #999;
+}
+
+.checkbox-style:disabled+label {
+    color: #aaa;
+}
+
+
+/* accessibility */
+
+.checkbox-style:checked:focus+label:before,
+.checkbox-style:not(:checked):focus+label:before {
+    border: 2px dotted blue;
+}
+
+
+/* hover style just for information */
+
+.checkbox-style label:hover:before {
+    border: 2px solid #4778d9!important;
+}
+
+
+/*@media (max-width: 900px) {
+    */
+
+
+/*    .top-bar {*/
+
+
+/*        padding: 0px;*/
+
+
+/*    }*/
+
+
+/*    .top-bar .user-account-btn {*/
+
+
+/*        top: 52px;*/
+
+
+/*        right: 40px;*/
+
+
+/*    }*/
+
+
+/*    .user-account-btn .username,*/
+
+
+/*    .down-arrow {*/
+
+
+/*        display: none;*/
+
+
+/*    }*/
+
+
+/*}*/

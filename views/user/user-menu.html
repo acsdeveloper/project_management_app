@@ -1,0 +1,139 @@
+<div class="col-lg-12 pad0A" ng-controller="userMenuController" ng-init="userMenuInit()">
+	<div class="top-bar bg-topbar">
+		<div class="container">
+			<!--<div class="float-left">
+			<a class="btn btn-sm bg-facebook tooltip-button" data-placement="bottom" title="Follow us on Facebook">
+				<i class="glyph-icon icon-facebook"></i>
+			</a>
+			<a class="btn btn-sm bg-google tooltip-button" data-placement="bottom" title="Follow us on Google+">
+				<i class="glyph-icon icon-google-plus"></i>
+			</a>
+			<a class="btn btn-sm bg-twitter tooltip-button" data-placement="bottom" title="Follow us on Twitter">
+				<i class="glyph-icon icon-twitter"></i>
+			</a>
+
+			<a class="btn btn-top btn-sm" title="Give us a call">
+				<i class="glyph-icon icon-phone"></i> +1-541-754-3010
+			</a>
+		</div>-->
+
+			<div class="float-right user-account-btn dropdown ">
+				<a title="My Account" class="user-profile clearfix" data-toggle="dropdown" aria-expanded="false">
+					<img width="28" ng - src="{{userData.avatar}}" alt="Profile image">
+					<span class="text-capitalize cursor-pointer">
+						{{userData.user_name}} 
+					</span>
+					<i class="glyph-icon icon-angle-down"></i>
+				</a>
+				<div class="dropdown-menu pad0B float-right users_menus">
+					<div class="box-sm users_menus">
+						<div class="login-box clearfix">
+							<div class="user-img">
+								<a title="" class="change-img">Change photo</a>
+								<img ng-src="{{userData.avatar}}" alt="">
+							</div>
+							<div class="user-info">
+								<span class="text-capitalize">
+	                                {{userData.user_name}} 
+                                  <i>{{userData.roles["3"]}} </i>
+                            </span>
+								<a title="" class="cursor-pointer" ng-click="goToEditProfile()">Edit profile</a>
+								<!--<a title="">View notifications</a>-->
+							</div>
+						</div>
+						<div class="divider"></div>
+						<ul class="reset-ul mrg5B">
+							<li>
+								<a href="all-users">
+                                    See All Users
+                                    <i class="glyph-icon float-right icon-caret-right"></i>
+                                </a>
+							</li>
+						</ul>
+						<div class="pad5A button-pane button-pane-alt text-center">
+							<a class="btn display-block font-normal btn-danger" ng-click="userLogout();">
+								<i class="glyph-icon icon-power-off"></i> Logout
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- .container -->
+	</div>
+	<!-- .top-bar -->
+	<div class="main-header bg-header wow fadeInDown">
+		<div class="container">
+			<a href="#/" class="header-logo" title="Monarch - Create perfect presentation websites"></a>
+			<!-- .search-icon -->
+			<div class="right-header-btn">
+				<div id="mobile-navigation">
+					<button id="nav-toggle" class="collapsed" data-toggle="collapse" data-target=".header-nav"><span></span></button>
+				</div>
+
+				<!--<div class="search-btn">
+					<a class="popover-button" title="Search" data-placement="bottom" data-id="#popover-search">
+						<i class="glyph-icon icon-search"></i>
+					</a>
+					<div class="hide" id="popover-search">
+						<div class="pad5A box-md">
+							<div class="input-group">
+								<input type="text" class="form-control" placeholder="Search terms here ...">
+								<span class="input-group-btn">
+                                    <a class="btn btn-primary" >Search</a>
+                                </span>
+							</div>
+						</div>
+					</div>
+				</div>-->
+			</div>
+			<!-- .header-logo -->
+			<ul class="header-nav collapse">
+				<li class="ms-hover">
+					<a href="needs-ux-ui" title="Needs UX UI" class="cursor-pointer">
+					 Needs UX UI
+					<!--<i class="glyph-icon icon-angle-down"></i>-->
+					</a>
+				</li>
+				<li class="ms-hover">
+					<a title="Dependencies" class="cursor-pointer">
+					 Dependencies
+					<!--<i class="glyph-icon icon-angle-down"></i>-->
+					</a>
+					<ul>
+						<li><a href="new-dependency" title="Click here to create a new Dependency"><span>Create a Dependency</span></a></li>
+						<li class="divider"></li>
+						<li><a href="all-dependencies" title="Click here to view all Dependencies"><span>View all Dependencies</span></a></li>
+					</ul>
+				</li>
+				<li class="ms-hover">
+					<a title="Directives" class="cursor-pointer">
+					 Directives
+					<!--<i class="glyph-icon icon-angle-down"></i>-->
+					</a>
+					<ul>
+						<li><a href="new-directive" title="Click here to create a new Directive"><span>Create a Directive</span></a></li>
+						<li class="divider"></li>
+						<li><a href="all-directives" title="Click here to view all Directives"><span>View all Directives</span></a></li>
+					</ul>
+				</li>
+				<li class="ms-hover">
+					<a title="Initiatives" class="cursor-pointer">
+						Initiatives
+						<!--<i class="glyph-icon icon-angle-down"></i>-->
+					</a>
+					<ul class="footer-nav">
+						<li class="cursor-pointer" ng-click="goToCreateInitiative();"><a title="Click here to create a new initiative"><span>Create an Initiative</span></a></li>
+						<li class="divider"></li>
+						<li><a href="all-initiatives" title="Click here to view all initiatives"><span>View all Initiatives</span></a></li>
+
+					</ul>
+				</li>
+			</ul>
+			<!-- .header-nav -->
+			<!-- .header-nav -->
+		</div>
+		<!-- .container -->
+	</div>
+	<!-- .main-header -->
+</div>

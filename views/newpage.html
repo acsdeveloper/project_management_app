@@ -1,0 +1,16 @@
+<div>
+    <div ng-include="'./views/user/user-menu.html'">
+    </div>
+
+    <div>
+        <div ng-controller="newController">
+            <!-- NOTE: remove 'animation-class': 'toast-top-center' if you want it on the left top corner -->
+            <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center'}"></toaster-container>
+            <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center'}"></toaster-container>
+            <button class="btn btn-primary" style="margin: 150px 0 0 150px;" ng-click="pop()">Show toasts</button>
+            <br />
+            <button class="btn btn-danger" style="margin: 10px 0 0 150px;" ng-click="clear()">Clear toasts</button>
+        </div>
+    </div>
+    new page
+</div>

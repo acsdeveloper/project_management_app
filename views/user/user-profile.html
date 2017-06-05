@@ -1,0 +1,163 @@
+<div ng-include="'./views/user/user-menu.html'"></div>
+<div class="col-lg-12 col-md-12 col-md-12 col-md-12 " ng-controller="viewUserController">
+    <title ng-bind="pageTitle"></title>
+    <div class="hero-box hero-box-smaller full-bg-13 font-inverse" data-top-bottom="background-position: 50% 0px;" data-bottom-top="background-position: 50% -600px;">
+        <div class="container">
+            <h1 class="hero-heading wow fadeInDown" data-wow-duration="0.6s">View User Profile</h1>
+        </div>
+        <div class="hero-overlay bg-black"></div>
+    </div>
+    <div id="page-content" class="col-md-10 center-margin frontend-components mrg25T">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="center-vertical">
+                    <div class="center-content row">
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 center-margin">
+                            <div class="panel-layout wow bounceInDown">
+                                <div class="panel-content pad0A bg-white">
+                                    <div class="meta-box meta-box-offset">
+                                        <img ng-src="{{userData.avatar}}" alt="" class="meta-image img-bordered img-circle" height="100" width="100">
+                                        <h3 class="meta-heading font-size-16 text-capitalize">{{userData.user_name}}</h3>
+                                        <h4 class="meta-subheading font-size-13 font-gray text-capitalize">{{userData.roles["3"]}}</h4>
+                                    </div>
+                                    <form action="" class="form-inline" method="">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--start profile-->
+
+                <div class="example-box-wrapper row">
+                    <div class="col-md-12 center-margin">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel">
+                                    <div class="panel-body">
+                                        <h3 class="title-hero">
+                                            Edit profile
+                                        </h3>
+                                        <div class="example-box-wrapper">
+                                            <form class="form-horizontal col-md-11 bordered-row" ng-submit="submitForm()">
+                                                <div class="form-group">
+                                                    <label class="control-label">Name</label>
+                                                    <input id="name" type="text" class="form-control" ng-model="user.userName" ng-if="user.userName" />
+                                                    <span ng-if="!user.userName"><input id="name" type="text" placeholder="Your Name here..." ng-model="user.userName"  title="Enter Name" class="form-control" /></span> </div>
+
+
+                                                <div class="form-group">
+                                                    <label class="control-label">Email address</label>
+                                                    <input id="email-address" type="email" placeholder="Your Email here..." title="Enter Email" class="form-control" ng-model="user.email" ng-if="user.email" />
+                                                    <span ng-if="!user.email"><input id="email-address" type="email" placeholder="Your Email here..." title="Enter Email" ng-model="user.email"  class="form-control" /></span> </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Bio</label>
+                                                    <input id="bio" type="textarea" class="form-control" ng-model="user.bio" ng-if="user.bio" />
+                                                    <span ng-if="!user.bio"><input id="bio" type="textarea" placeholder="Your comments here..." title="Enter comments" ng-model="user.bio"  class="form-control" /></span> </div>
+
+
+
+                                                <div class="form-group">
+
+                                                    <div>
+
+                                                        <label class="control-label">Display picture</label>
+                                                        <img ng-src="{{userData.avatar}}" class="img-circle" width="100" height="100">
+                                                        <!--<label class="fileContainer">-->
+                                                        <!--    change Photo-->
+                                                        <input type="file" file-model="myFile" onchange="angular.element(this).scope().imageUpload(event)" />
+                                                        <!--< /label>-->
+                                                    </div>
+
+                                                </div>
+
+
+
+                                                <div class="form-group">
+                                                    <label class="control-label">Password</label>
+                                                    <input id="password" type="password" placeholder="Your Password here..." title="Enter password" ng-model="user.password" class="form-control" value="12345678" />
+                                                </div>
+                                                <div class="button-pane ">
+                                                    <button type="submit " class="btn btn-block btn-primary ">Submit</button>
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--end profile-->
+
+
+            </div>
+            <div class="col-md-10">
+
+                <!-- Calendar -->
+
+                <div class="panel">
+                    <div class="panel-body">
+                        <h3 class="title-hero">
+                            Manage {{userData.user_name}}'s capacity here
+                        </h3>
+                        <div class="example-box-wrapper row">
+
+
+                            <div class="col-md-11 center-margin">
+                                <div class="row">
+                                    <div class="col-md-8">
+
+                                        <div id="calendar-example-2"></div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="content-box" id="external-events">
+                                            <h3 class="content-box-header bg-default">
+                                                <span class="icon-separator">
+                                        <i class="glyph-icon icon-calendar"></i>
+                                    </span> Adjust capacity
+                                            </h3>
+                                            <div class="content-box-wrapper">
+                                                <div class="btn display-block mrg5B bg-orange external-event" data-class="bg-orange">
+                                                    <div class="button-content">1/2 day off</div>
+                                                </div>
+                                                <div class="btn display-block mrg5B bg-primary external-event">
+                                                    <div class="button-content">Full day off</div>
+                                                </div>
+                                                <div class="btn display-block mrg5B bg-yellow external-event">
+                                                    <div class="button-content">Week off</div>
+                                                </div>
+                                                <div class="btn display-block mrg5B bg-blue-alt external-event">
+                                                    <div class="button-content">Public holiday</div>
+                                                </div>
+                                                <input type="checkbox" id="drop-remove">
+                                                <label for="drop-remove">remove after drop</label>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="./assets/widgets/calendar/calendar-demo.js"></script>
+
+<!--below files added by PA 09052017 @ 1201pm to make in-line editors work-->
+<!-- Bootstrap Summernote WYSIWYG editor -->
+<script type="text/javascript" src="./assets/widgets/tooltip/tooltip.js"></script>
+<script type="text/javascript" src="./assets/widgets/popover/popover.js"></script>
+<!--<link rel="stylesheet" type="text/css" href="../../assets/widgets/xeditable/xeditable.css">-->
+<script type="text/javascript" src="./assets/widgets/xeditable/xeditable.js"></script>
+<script type="text/javascript" src="./assets/widgets/xeditable/xeditable-demo.js"></script>
+<!--end of files added by PA 09052017 @ 1201pm to make in-line editors work-->
